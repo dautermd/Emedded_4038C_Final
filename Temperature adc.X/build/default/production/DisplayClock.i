@@ -2861,13 +2861,16 @@ void DisplayTemp(void);
 
 
 
+
+
+
 extern int sec,min,hour;
 extern int Day,Date,Month,Year;
-extern char secs[10],mins[10],hours[10];
-extern char date[10],month[10],year[10];
-extern char Clock_type;
-extern char AM_PM;
-extern char days[7];
+
+
+
+
+
 
 
 void printClock(void);
@@ -2877,90 +2880,79 @@ void printClock(void);
 
 
 
-int sec=0,min=0,hour=0;
-int Day=0,Date=0,Month=0,Year=0;
-char secs[10],mins[10],hours[10];
-char date[10],month[10],year[10];
-char Clock_type = 0x06;
-char AM_PM = 0x05;
-char days[7] = {'S','M','T','W','t','F','s'};
 
 void printClock()
 {
-    RTC_Read_Clock(0);
-    I2C_Stop();
-    if(hour & (1<<Clock_type)){
+        RTC_Read_Clock(0);
+        I2C_Stop();
+        if(hour & (1<<Clock_type)){
 
-        if(hour & (1<<AM_PM)){
-            LCD_Set_Cursor('1','14');
-            LCD_Write_String("PM");
+            if(hour & (1<<AM_PM)){
+                LCD_String_xy(1,13,"PM");
+            }
+            else{
+                LCD_String_xy(1,13,"AM");
+            }
+
+            hour = hour & (0x1f);
+            sprintf(secs,"%x ",sec);
+            sprintf(mins,"%x:",min);
+            sprintf(hours,"Tim:%x:",hour);
+            LCD_String_xy(0,0,hours);
+            LCD_Write_String(mins);
+            LCD_Write_String(secs);
         }
         else{
-            LCD_Set_Cursor('1','14');
-            LCD_Write_String("AM");
+
+            hour = hour & (0x3f);
+            sprintf(secs,"%x ",sec);
+            sprintf(mins,"%x:",min);
+            sprintf(hours,"Tim:%x:",hour);
+            LCD_String_xy(0,0,hours);
+            LCD_Write_String(mins);
+            LCD_Write_String(secs);
         }
 
-        hour = hour & (0x1f);
-        sprintf(secs,"%x ",sec);
-        sprintf(mins,"%x:",min);
-        sprintf(hours,"Tim:%x:",hour);
-        LCD_Set_Cursor('1', '0');
-        LCD_Write_String(hours);
-        LCD_Write_String(mins);
-        LCD_Write_String(secs);
-    }
-    else{
-
-        hour = hour & (0x3f);
-        sprintf(secs,"%x ",sec);
-        sprintf(mins,"%x:",min);
-        sprintf(hours,"Tim:%x:",hour);
-        LCD_Set_Cursor('1','0');
-        LCD_Write_String(hours);
-        LCD_Write_String(mins);
-        LCD_Write_String(secs);
-    }
-
-    RTC_Read_Calendar(3);
-    I2C_Stop();
-    sprintf(date,"Cal %x-",Date);
-    sprintf(month,"%x-",Month);
-    sprintf(year,"%x ",Year);
-    LCD_Set_Cursor('2','0');
-    LCD_Write_String(date);
-    LCD_Write_String(month);
-    LCD_Write_String(year);
-
-
+        RTC_Read_Calendar(3);
+        I2C_Stop();
+        sprintf(date,"Cal:%x-",Date);
+        sprintf(month,"%x-",Month);
+        sprintf(year,"%x ",Year);
+        LCD_String_xy(2,0,date);
+        LCD_Write_String(month);
+        LCD_Write_String(year);
 
 
     switch(days[Day])
     {
         case 'S':
-                    LCD_Write_String("Sun");
-                    break;
+                LCD_Write_String("Sun");
+                break;
         case 'M':
-                    LCD_Write_String("Mon");
-                    break;
+                LCD_Write_String("Mon");
+                break;
         case 'T':
-                    LCD_Write_String("Tue");
-                    break;
+                LCD_Write_String("Tue");
+                break;
         case 'W':
-                    LCD_Write_String("Wed");
-                    break;
+                LCD_Write_String("Wed");
+                break;
         case 't':
-                    LCD_Write_String("Thu");
-                    break;
+                LCD_Write_String("Thu");
+                break;
         case 'F':
-                    LCD_Write_String("Fri");
-                    break;
+                LCD_Write_String("Fri");
+                break;
         case 's':
-                    LCD_Write_String("Sat");
-                    break;
+                LCD_Write_String("Sat");
+                break;
         default:
-                    LCD_Write_String("Inv");
-                    break;
+                LCD_Write_String("Inv");
+                break;
 
     }
-    _delay((unsigned long)((100)*(8000000/4000.0)));
+
+
+
+
 }

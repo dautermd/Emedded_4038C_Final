@@ -4,10 +4,10 @@ unsigned int photo_result;
 
 void PhotoResistor_Init(void) {
     
-    ANSELHbits.ANS8 = 1;
-    TRISBbits.TRISB2 = 1;
+    ANSELHbits.ANS13 = 1;
+    TRISBbits.TRISB5 = 1;
     
-//    PHOTO_PIN RB2
+//    
     
 }
 
@@ -15,7 +15,7 @@ void ReadPhoto(){
     
     // ADC Control Register 0
     ADCON0bits.ADCS = 0b11; // ADC Conversion Clock Select, FRC (internal oscillator)
-    ADCON0bits.CHS = 0b1000; // Analog Channel Select, AN8
+    ADCON0bits.CHS = 0b1101; // Analog Channel Select, AN13
 
     // ADC Control Register 1
     ADCON1bits.VCFG1 = 0; // Voltage Ref, VSS

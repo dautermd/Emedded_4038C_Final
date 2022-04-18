@@ -9,11 +9,10 @@
       <itemPath>Configs.h</itemPath>
       <itemPath>Temp.h</itemPath>
       <itemPath>RTC.h</itemPath>
-      <itemPath>DisplayClock.h</itemPath>
-      <itemPath>../../Downloads/PIC_Microcontroller_with_DS18B20 (2)/micro_temp_sensor.X/supporting c files/Pinout.h</itemPath>
       <itemPath>LED.h</itemPath>
       <itemPath>RotaryEncoder.h</itemPath>
       <itemPath>PhotoResistor.h</itemPath>
+      <itemPath>Pinout.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -27,7 +26,6 @@
       <itemPath>Temp.c</itemPath>
       <itemPath>interface_main.c</itemPath>
       <itemPath>RTC.c</itemPath>
-      <itemPath>DisplayClock.c</itemPath>
       <itemPath>LED.c</itemPath>
       <itemPath>RotaryEncoder.c</itemPath>
       <itemPath>PhotoResistor.c</itemPath>

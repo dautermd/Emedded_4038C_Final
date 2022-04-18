@@ -437,8 +437,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e :U _ChangeColor ]
 [f ]
 "55
-[; ;RotaryEncoder.c: 55:     LED_Color(1);
-[e ( _LED_Color (1 -> -> 1 `i `uc ]
+[; ;RotaryEncoder.c: 55:     LED_Color(0);
+[e ( _LED_Color (1 -> -> 0 `i `uc ]
 "57
 [; ;RotaryEncoder.c: 57:     return;
 [e $UE 145  ]

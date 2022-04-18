@@ -2832,13 +2832,16 @@ void sendRGB (unsigned char r, unsigned char g, unsigned char b);
 # 15 "./DisplayClock.h" 2
 
 
+
+
+
 extern int sec,min,hour;
 extern int Day,Date,Month,Year;
-extern char secs[10],mins[10],hours[10];
-extern char date[10],month[10],year[10];
-extern char Clock_type;
-extern char AM_PM;
-extern char days[7];
+
+
+
+
+
 
 
 void printClock(void);
@@ -2869,7 +2872,6 @@ void DisplayTemp(void);
 
 
 
-
 # 1 "./RotaryEncoder.h" 1
 # 19 "./RotaryEncoder.h"
 extern int lastStateCLK;
@@ -2885,7 +2887,7 @@ extern int colorIncrement;
 void RotaryEncoder_Init(void);
 void ChangeBrightness(void);
 void ChangeColor(void);
-# 17 "interface_main.c" 2
+# 16 "interface_main.c" 2
 
 # 1 "./PhotoResistor.h" 1
 # 17 "./PhotoResistor.h"
@@ -2893,17 +2895,30 @@ extern unsigned int photo_result;
 
 void PhotoResistor_Init(void);
 void ReadPhoto(void);
-# 18 "interface_main.c" 2
-# 29 "interface_main.c"
+# 17 "interface_main.c" 2
+# 27 "interface_main.c"
 unsigned short result;
 
 unsigned short alarmTime;
 
+
+
+
+int sec=0,min=0,hour=0;
+int Day=0,Date=0,Month=0,Year=0;
+char secs[10]={0},mins[10]={0},hours[10]={0};
+char date[10]={0},month[10]={0},year[10]={0};
+char Clock_type = 0x06;
+char AM_PM = 0x05;
+char days[7] = {'S','M','T','W','t','F','s'};
+
 void main (void){
+    TRISB = 0x0;
+    TRISC = 0x0;
+    ANSEL = 0x0;
+    ANSELH = 0x00;
 
     TRISB = 0b00110000;
-    ANSEL = 0;
-    ANSELH = 0x00;
     PORTB = 0b00110000;
     TRISE = 0x0;
 
@@ -2911,48 +2926,26 @@ void main (void){
     LCD_Init();
     LED_Init();
     RotaryEncoder_Init();
+    LCD_Clear();
+    _delay((unsigned long)((10)*(8000000/4000.0)));
 
     RTC_Clock_Write(0x00, 0x14, 0x10, 0x40);
     RTC_Calendar_Write(0x1, 0x22, 0x04, 0x18);
 
     short int displayMode = 0;
-    short int ledMode = 1;
 
     while(1){
 
+        LCD_Clear();
 
 
-        if(ledMode == 1)
-        {
-
-            ChangeBrightness();
-            ChangeColor();
-
-            if(RB4 == 0)
-            {
-                while(RB4 == 0);
-                ledMode = ledMode + 1;
-            }
-        }
-        else if(ledMode == 2)
-        {
-            ReadPhoto();
-
-
-            if(RB4 == 0)
-            {
-                while(RB4 == 0);
-                ledMode = ledMode + 1;
-            }
-        }
 
 
         if (displayMode == 0)
         {
             char buffer3[16];
-            LCD_Clear();
             sprintf(buffer3, "%s", "Hello There");
-            LCD_Write_String(buffer3);
+            LCD_String_xy(0,0,buffer3);
             _delay((unsigned long)((100)*(8000000/4000.0)));
 
             if(RE3 == 0 && RB5 == 0)
@@ -2964,8 +2957,77 @@ void main (void){
 
         else if (displayMode == 1)
         {
-            LCD_Clear();
-            printClock();
+            RTC_Read_Clock(0);
+            I2C_Stop();
+            if(hour & (1<<Clock_type)){
+
+                if(hour & (1<<AM_PM)){
+                    LCD_String_xy(1,13,"PM");
+                }
+                else{
+                    LCD_String_xy(1,13,"AM");
+                }
+
+                hour = hour & (0x1f);
+                sprintf(secs,"%x ",sec);
+                sprintf(mins,"%x:",min);
+                sprintf(hours,"Tim:%x:",hour);
+                LCD_String_xy(0,0,hours);
+                LCD_Write_String(mins);
+                LCD_Write_String(secs);
+            }
+            else{
+
+                hour = hour & (0x3f);
+                sprintf(secs,"%x ",sec);
+                sprintf(mins,"%x:",min);
+                sprintf(hours,"Tim:%x:",hour);
+                LCD_String_xy(0,0,hours);
+                LCD_Write_String(mins);
+                LCD_Write_String(secs);
+            }
+
+            RTC_Read_Calendar(3);
+            I2C_Stop();
+            sprintf(date,"Cal:%x-",Date);
+            sprintf(month,"%x-",Month);
+            sprintf(year,"%x ",Year);
+            LCD_String_xy(2,0,date);
+            LCD_Write_String(month);
+            LCD_Write_String(year);
+
+
+            switch(days[Day])
+            {
+                case 'S':
+                        LCD_Write_String("Sun");
+                        break;
+                case 'M':
+                        LCD_Write_String("Mon");
+                        break;
+                case 'T':
+                        LCD_Write_String("Tue");
+                        break;
+                case 'W':
+                        LCD_Write_String("Wed");
+                        break;
+                case 't':
+                        LCD_Write_String("Thu");
+                        break;
+                case 'F':
+                        LCD_Write_String("Fri");
+                        break;
+                case 's':
+                        LCD_Write_String("Sat");
+                        break;
+                default:
+                        LCD_Write_String("Inv");
+                        break;
+
+            }
+
+            _delay((unsigned long)((10)*(8000000/4000.0)));
+
             if(RE3 == 0 && RB5 == 0)
             {
                 while(RE3 == 0 && RB5 == 0);
@@ -2995,7 +3057,7 @@ void main (void){
 
             ADCON0bits.ADON = 1;
 
-            LCD_Clear();
+
             Update_Celsius();
             Update_Farenheit();
             DisplayTemp();
@@ -3006,15 +3068,48 @@ void main (void){
                 displayMode = displayMode+1;
             }
         }
+        else if (displayMode == 3) {
+
+            ChangeBrightness();
+
+
+            char buffer3[16];
+            sprintf(buffer3, "Light:%d", brightness);
+            LCD_String_xy(0,0,buffer3);
+            _delay((unsigned long)((100)*(8000000/4000.0)));
+
+            if(RE3 == 0 && RB5 == 0)
+            {
+                while(RE3 == 0 && RB5 == 0);
+                displayMode = displayMode+1;
+            }
+        }
+
+        else if (displayMode == 4) {
+            ReadPhoto();
+
+            unsigned tmp = 1024 - photo_result;
+
+            char buffer3[16];
+            sprintf(buffer3, "Photo:%d", tmp);
+            LCD_String_xy(0,0,buffer3);
+            _delay((unsigned long)((100)*(8000000/4000.0)));
+
+
+            CCPR1L = tmp;
+
+            if(RE3 == 0 && RB5 == 0)
+            {
+                while(RE3 == 0 && RB5 == 0);
+                displayMode = displayMode+1;
+            }
+        }
+
 
        _delay((unsigned long)((10)*(8000000/4000.0)));
-       if(displayMode >= 3)
+       if(displayMode >= 5)
        {
            displayMode = 0;
-       }
-       if(ledMode >= 2)
-       {
-           ledMode = 1;
        }
 
     }

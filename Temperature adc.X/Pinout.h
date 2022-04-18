@@ -13,9 +13,12 @@
 
 // LED
 #define DATA RC3
-#define LED RB0
+#define LED RB2
 #define SW1 !RB5
 
+#define PHOTO_PIN RB6
+
+#define SPEAKER_PIN RB6
 
 
 

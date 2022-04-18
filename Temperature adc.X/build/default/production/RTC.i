@@ -2837,13 +2837,16 @@ void sendRGB (unsigned char r, unsigned char g, unsigned char b);
 # 15 "./DisplayClock.h" 2
 
 
+
+
+
 extern int sec,min,hour;
 extern int Day,Date,Month,Year;
-extern char secs[10],mins[10],hours[10];
-extern char date[10],month[10],year[10];
-extern char Clock_type;
-extern char AM_PM;
-extern char days[7];
+
+
+
+
+
 
 
 void printClock(void);

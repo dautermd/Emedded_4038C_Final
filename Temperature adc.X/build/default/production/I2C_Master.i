@@ -2554,8 +2554,8 @@ char I2C_Read(char flag)
 
 void I2C_Init()
 {
-    TRISB0=1;
- TRISB1=1;
+    TRISCbits.TRISC3 = 1;
+ TRISCbits.TRISC4 = 1;
  SSPSTAT=80;
     SSPCON=0x28;
 

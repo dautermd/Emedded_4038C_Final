@@ -2832,13 +2832,16 @@ void sendRGB (unsigned char r, unsigned char g, unsigned char b);
 # 15 "./DisplayClock.h" 2
 
 
+
+
+
 extern int sec,min,hour;
 extern int Day,Date,Month,Year;
-extern char secs[10],mins[10],hours[10];
-extern char date[10],month[10],year[10];
-extern char Clock_type;
-extern char AM_PM;
-extern char days[7];
+
+
+
+
+
 
 
 void printClock(void);
@@ -2882,8 +2885,8 @@ unsigned int photo_result;
 
 void PhotoResistor_Init(void) {
 
-    ANSELHbits.ANS8 = 1;
-    TRISBbits.TRISB2 = 1;
+    ANSELHbits.ANS13 = 1;
+    TRISBbits.TRISB5 = 1;
 
 
 
@@ -2893,7 +2896,7 @@ void ReadPhoto(){
 
 
     ADCON0bits.ADCS = 0b11;
-    ADCON0bits.CHS = 0b1000;
+    ADCON0bits.CHS = 0b1101;
 
 
     ADCON1bits.VCFG1 = 0;

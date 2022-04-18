@@ -345,11 +345,11 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e :U _PhotoResistor_Init ]
 [f ]
 "7
-[; ;PhotoResistor.c: 7:     ANSELHbits.ANS8 = 1;
-[e = . . _ANSELHbits 0 0 -> -> 1 `i `uc ]
+[; ;PhotoResistor.c: 7:     ANSELHbits.ANS13 = 1;
+[e = . . _ANSELHbits 0 5 -> -> 1 `i `uc ]
 "8
-[; ;PhotoResistor.c: 8:     TRISBbits.TRISB2 = 1;
-[e = . . _TRISBbits 0 2 -> -> 1 `i `uc ]
+[; ;PhotoResistor.c: 8:     TRISBbits.TRISB5 = 1;
+[e = . . _TRISBbits 0 5 -> -> 1 `i `uc ]
 "12
 [; ;PhotoResistor.c: 12: }
 [e :UE 139 ]
@@ -364,8 +364,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;PhotoResistor.c: 17:     ADCON0bits.ADCS = 0b11;
 [e = . . _ADCON0bits 0 3 -> -> 3 `i `uc ]
 "18
-[; ;PhotoResistor.c: 18:     ADCON0bits.CHS = 0b1000;
-[e = . . _ADCON0bits 0 2 -> -> 8 `i `uc ]
+[; ;PhotoResistor.c: 18:     ADCON0bits.CHS = 0b1101;
+[e = . . _ADCON0bits 0 2 -> -> 13 `i `uc ]
 "21
 [; ;PhotoResistor.c: 21:     ADCON1bits.VCFG1 = 0;
 [e = . . _ADCON1bits 0 2 -> -> 0 `i `uc ]

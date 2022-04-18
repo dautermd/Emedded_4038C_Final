@@ -14,13 +14,16 @@
 #include "Pinout.h"
 #include "LED.h"
 
+#define device_id_write 0xD0
+#define device_id_read 0xD1
+
 extern int sec,min,hour;
 extern int Day,Date,Month,Year;
-extern char secs[10],mins[10],hours[10];
-extern char date[10],month[10],year[10];
-extern char Clock_type;
-extern char AM_PM;
-extern char days[7];
+//extern char secs[10],mins[10],hours[10];
+//extern char date[10],month[10],year[10];
+//extern char Clock_type;
+//extern char AM_PM;
+//extern char days[7];
 
 
 void printClock(void);  

@@ -26,8 +26,8 @@ char I2C_Read(char flag)                 /*read data from location and
 
 void I2C_Init()
 {
-    TRISB0=1;							/*set up I2C lines by setting as input*/
-	TRISB1=1;
+    TRISCbits.TRISC3 = 1;	/*set up I2C lines by setting as input*/
+	TRISCbits.TRISC4 = 1;
 	SSPSTAT=80;                         /*slew rate disabled, other bits are cleared*/
     SSPCON=0x28;						/*enable SSP port for I2C Master mode,
                                          *clock = FOSC / (4 * (SSPADD+1))*/ 
