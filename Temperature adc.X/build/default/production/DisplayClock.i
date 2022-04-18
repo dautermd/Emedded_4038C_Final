@@ -1,4 +1,4 @@
-# 1 "I2C_Master.c"
+# 1 "DisplayClock.c"
 # 1 "<built-in>" 1
 # 1 "<built-in>" 3
 # 288 "<built-in>" 3
@@ -6,16 +6,11 @@
 # 1 "<built-in>" 2
 # 1 "C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC16Fxxx_DFP/1.3.42/xc8\\pic\\include\\language_support.h" 1 3
 # 2 "<built-in>" 2
-# 1 "I2C_Master.c" 2
+# 1 "DisplayClock.c" 2
+# 1 "./DisplayClock.h" 1
 
 
 
-
-
-
-
-# 1 "./I2C_Master.h" 1
-# 11 "./I2C_Master.h"
 # 1 "C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC16Fxxx_DFP/1.3.42/xc8\\pic\\include\\xc.h" 1 3
 # 18 "C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC16Fxxx_DFP/1.3.42/xc8\\pic\\include\\xc.h" 3
 extern const char __xc8_OPTIM_SPEED;
@@ -2513,7 +2508,50 @@ extern __bank0 unsigned char __resetbits;
 extern __bank0 __bit __powerdown;
 extern __bank0 __bit __timeout;
 # 29 "C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC16Fxxx_DFP/1.3.42/xc8\\pic\\include\\xc.h" 2 3
-# 11 "./I2C_Master.h" 2
+# 4 "./DisplayClock.h" 2
+
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.35\\pic\\include\\c90\\stdio.h" 1 3
+
+
+
+# 1 "C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC16Fxxx_DFP/1.3.42/xc8\\pic\\include\\__size_t.h" 1 3
+
+
+
+typedef unsigned size_t;
+# 4 "C:\\Program Files\\Microchip\\xc8\\v2.35\\pic\\include\\c90\\stdio.h" 2 3
+
+# 1 "C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC16Fxxx_DFP/1.3.42/xc8\\pic\\include\\__null.h" 1 3
+# 5 "C:\\Program Files\\Microchip\\xc8\\v2.35\\pic\\include\\c90\\stdio.h" 2 3
+
+
+
+
+
+
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.35\\pic\\include\\c90\\stdarg.h" 1 3
+
+
+
+
+
+
+typedef void * va_list[1];
+
+#pragma intrinsic(__va_start)
+extern void * __va_start(void);
+
+#pragma intrinsic(__va_arg)
+extern void * __va_arg(void *, ...);
+# 11 "C:\\Program Files\\Microchip\\xc8\\v2.35\\pic\\include\\c90\\stdio.h" 2 3
+# 43 "C:\\Program Files\\Microchip\\xc8\\v2.35\\pic\\include\\c90\\stdio.h" 3
+struct __prbuf
+{
+ char * ptr;
+ void (* func)(char);
+};
+# 85 "C:\\Program Files\\Microchip\\xc8\\v2.35\\pic\\include\\c90\\stdio.h" 3
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.35\\pic\\include\\c90\\conio.h" 1 3
 
 
 
@@ -2521,6 +2559,195 @@ extern __bank0 __bit __timeout;
 
 
 
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.35\\pic\\include\\c90\\errno.h" 1 3
+# 29 "C:\\Program Files\\Microchip\\xc8\\v2.35\\pic\\include\\c90\\errno.h" 3
+extern int errno;
+# 8 "C:\\Program Files\\Microchip\\xc8\\v2.35\\pic\\include\\c90\\conio.h" 2 3
+
+
+
+
+extern void init_uart(void);
+
+extern char getch(void);
+extern char getche(void);
+extern void putch(char);
+extern void ungetch(char);
+
+extern __bit kbhit(void);
+
+
+
+extern char * cgets(char *);
+extern void cputs(const char *);
+# 85 "C:\\Program Files\\Microchip\\xc8\\v2.35\\pic\\include\\c90\\stdio.h" 2 3
+
+
+
+extern int cprintf(char *, ...);
+#pragma printf_check(cprintf)
+
+
+
+extern int _doprnt(struct __prbuf *, const register char *, register va_list);
+# 180 "C:\\Program Files\\Microchip\\xc8\\v2.35\\pic\\include\\c90\\stdio.h" 3
+#pragma printf_check(vprintf) const
+#pragma printf_check(vsprintf) const
+
+extern char * gets(char *);
+extern int puts(const char *);
+extern int scanf(const char *, ...) __attribute__((unsupported("scanf() is not supported by this compiler")));
+extern int sscanf(const char *, const char *, ...) __attribute__((unsupported("sscanf() is not supported by this compiler")));
+extern int vprintf(const char *, va_list) __attribute__((unsupported("vprintf() is not supported by this compiler")));
+extern int vsprintf(char *, const char *, va_list) __attribute__((unsupported("vsprintf() is not supported by this compiler")));
+extern int vscanf(const char *, va_list ap) __attribute__((unsupported("vscanf() is not supported by this compiler")));
+extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupported("vsscanf() is not supported by this compiler")));
+
+#pragma printf_check(printf) const
+#pragma printf_check(sprintf) const
+extern int sprintf(char *, const char *, ...);
+extern int printf(const char *, ...);
+# 5 "./DisplayClock.h" 2
+
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.35\\pic\\include\\c90\\stdlib.h" 1 3
+
+
+
+
+
+
+typedef unsigned short wchar_t;
+
+
+
+
+
+
+
+typedef struct {
+ int rem;
+ int quot;
+} div_t;
+typedef struct {
+ unsigned rem;
+ unsigned quot;
+} udiv_t;
+typedef struct {
+ long quot;
+ long rem;
+} ldiv_t;
+typedef struct {
+ unsigned long quot;
+ unsigned long rem;
+} uldiv_t;
+# 65 "C:\\Program Files\\Microchip\\xc8\\v2.35\\pic\\include\\c90\\stdlib.h" 3
+extern double atof(const char *);
+extern double strtod(const char *, const char **);
+extern int atoi(const char *);
+extern unsigned xtoi(const char *);
+extern long atol(const char *);
+
+
+
+extern long strtol(const char *, char **, int);
+
+extern int rand(void);
+extern void srand(unsigned int);
+extern void * calloc(size_t, size_t);
+extern div_t div(int numer, int denom);
+extern udiv_t udiv(unsigned numer, unsigned denom);
+extern ldiv_t ldiv(long numer, long denom);
+extern uldiv_t uldiv(unsigned long numer,unsigned long denom);
+
+
+
+extern unsigned long _lrotl(unsigned long value, unsigned int shift);
+extern unsigned long _lrotr(unsigned long value, unsigned int shift);
+extern unsigned int _rotl(unsigned int value, unsigned int shift);
+extern unsigned int _rotr(unsigned int value, unsigned int shift);
+
+
+
+
+extern void * malloc(size_t);
+extern void free(void *);
+extern void * realloc(void *, size_t);
+# 104 "C:\\Program Files\\Microchip\\xc8\\v2.35\\pic\\include\\c90\\stdlib.h" 3
+extern int atexit(void (*)(void));
+extern char * getenv(const char *);
+extern char ** environ;
+extern int system(char *);
+extern void qsort(void *, size_t, size_t, int (*)(const void *, const void *));
+extern void * bsearch(const void *, void *, size_t, size_t, int(*)(const void *, const void *));
+extern int abs(int);
+extern long labs(long);
+
+extern char * itoa(char * buf, int val, int base);
+extern char * utoa(char * buf, unsigned val, int base);
+
+
+
+
+extern char * ltoa(char * buf, long val, int base);
+extern char * ultoa(char * buf, unsigned long val, int base);
+
+extern char * ftoa(float f, int * status);
+# 6 "./DisplayClock.h" 2
+
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.35\\pic\\include\\c90\\string.h" 1 3
+# 14 "C:\\Program Files\\Microchip\\xc8\\v2.35\\pic\\include\\c90\\string.h" 3
+extern void * memcpy(void *, const void *, size_t);
+extern void * memmove(void *, const void *, size_t);
+extern void * memset(void *, int, size_t);
+# 36 "C:\\Program Files\\Microchip\\xc8\\v2.35\\pic\\include\\c90\\string.h" 3
+extern char * strcat(char *, const char *);
+extern char * strcpy(char *, const char *);
+extern char * strncat(char *, const char *, size_t);
+extern char * strncpy(char *, const char *, size_t);
+extern char * strdup(const char *);
+extern char * strtok(char *, const char *);
+
+
+extern int memcmp(const void *, const void *, size_t);
+extern int strcmp(const char *, const char *);
+extern int stricmp(const char *, const char *);
+extern int strncmp(const char *, const char *, size_t);
+extern int strnicmp(const char *, const char *, size_t);
+extern void * memchr(const void *, int, size_t);
+extern size_t strcspn(const char *, const char *);
+extern char * strpbrk(const char *, const char *);
+extern size_t strspn(const char *, const char *);
+extern char * strstr(const char *, const char *);
+extern char * stristr(const char *, const char *);
+extern char * strerror(int);
+extern size_t strlen(const char *);
+extern char * strchr(const char *, int);
+extern char * strichr(const char *, int);
+extern char * strrchr(const char *, int);
+extern char * strrichr(const char *, int);
+# 7 "./DisplayClock.h" 2
+
+# 1 "./LCD.h" 1
+# 25 "./LCD.h"
+extern unsigned char RS, i2c_add, BackLight_State;
+
+void LCD_Init(void);
+void IO_Expander_Write(unsigned char Data);
+void LCD_Write_4Bit(unsigned char Nibble);
+void LCD_CMD(unsigned char CMD);
+void LCD_Set_Cursor(unsigned char ROW, unsigned char COL);
+void LCD_Write_Char(const char);
+void LCD_Write_String(const char*);
+void LCD_String_xy(char, char , const char *);
+void Backlight(void);
+void noBacklight(void);
+void LCD_SR(void);
+void LCD_SL(void);
+void LCD_Clear(void);
+# 8 "./DisplayClock.h" 2
+
+# 1 "./I2C_Master.h" 1
+# 18 "./I2C_Master.h"
 void I2C_Ready(void);
 void I2C_Init(void);
 char I2C_Start(char);
@@ -2532,119 +2759,208 @@ char I2C_Write(unsigned char);
 void I2C_Ack(void);
 void I2C_Nack(void);
 char I2C_Read(char flag);
-# 8 "I2C_Master.c" 2
+# 9 "./DisplayClock.h" 2
+
+# 1 "./Configs.h" 1
+# 21 "./Configs.h"
+#pragma config FOSC = HS
+#pragma config WDTE = OFF
+#pragma config PWRTE = OFF
+#pragma config MCLRE = OFF
+#pragma config CP = OFF
+#pragma config CPD = OFF
+#pragma config BOREN = ON
+#pragma config IESO = ON
+#pragma config FCMEN = ON
+#pragma config LVP = OFF
 
 
-char I2C_Read(char flag)
+#pragma config BOR4V = BOR40V
+#pragma config WRT = OFF
+# 10 "./DisplayClock.h" 2
 
+# 1 "./Temp.h" 1
+# 11 "./Temp.h"
+# 1 "./Temp.h" 1
+# 11 "./Temp.h" 2
+
+# 1 "./RTC.h" 1
+# 11 "./RTC.h"
+# 1 "./Temp.h" 1
+# 11 "./RTC.h" 2
+
+# 1 "./RTC.h" 1
+# 12 "./RTC.h" 2
+
+# 1 "./DisplayClock.h" 1
+# 13 "./RTC.h" 2
+
+# 1 "./Pinout.h" 1
+# 14 "./RTC.h" 2
+
+# 1 "./LED.h" 1
+# 11 "./LED.h"
+# 1 "./Temp.h" 1
+# 11 "./LED.h" 2
+
+# 1 "./RTC.h" 1
+# 12 "./LED.h" 2
+
+# 1 "./DisplayClock.h" 1
+# 13 "./LED.h" 2
+
+
+# 1 "./LED.h" 1
+# 15 "./LED.h" 2
+
+
+
+
+
+void LED_Init(void);
+void LED_Color(unsigned char brt);
+void sendByte (unsigned char b);
+void sendRGB (unsigned char r, unsigned char g, unsigned char b);
+# 15 "./RTC.h" 2
+
+
+
+
+
+
+
+
+extern int sec,min,hour,Day,Date,Month,Year;
+
+void RTC_Read_Clock(char read_clock_address);
+void RTC_Read_Calendar(char read_calendar_address);
+void RTC_Clock_Write(char sec, char min, char hour, char AM_PM);
+void RTC_Calendar_Write(char day, char date, char month, char year);
+# 12 "./Temp.h" 2
+
+# 1 "./DisplayClock.h" 1
+# 13 "./Temp.h" 2
+
+
+
+
+extern unsigned short result;
+extern int temperature_c, temperature_f;
+extern int Temp_Mode;
+
+
+void Update_Farenheit(void);
+void Update_Celsius(void);
+void DisplayTemp(void);
+# 11 "./DisplayClock.h" 2
+
+
+# 1 "./DisplayClock.h" 1
+# 13 "./DisplayClock.h" 2
+
+
+
+
+extern int sec,min,hour;
+extern int Day,Date,Month,Year;
+extern char secs[10],mins[10],hours[10];
+extern char date[10],month[10],year[10];
+extern char Clock_type;
+extern char AM_PM;
+extern char days[7];
+
+
+void printClock(void);
+# 1 "DisplayClock.c" 2
+
+
+
+
+
+int sec=0,min=0,hour=0;
+int Day=0,Date=0,Month=0,Year=0;
+char secs[10],mins[10],hours[10];
+char date[10],month[10],year[10];
+char Clock_type = 0x06;
+char AM_PM = 0x05;
+char days[7] = {'S','M','T','W','t','F','s'};
+
+void printClock()
 {
-        char buffer;
-        RCEN = 1;
-        while(!SSPSTATbits.BF);
+    RTC_Read_Clock(0);
+    I2C_Stop();
+    if(hour & (1<<Clock_type)){
 
-        buffer = SSPBUF;
+        if(hour & (1<<AM_PM)){
+            LCD_Set_Cursor('1','14');
+            LCD_Write_String("PM");
+        }
+        else{
+            LCD_Set_Cursor('1','14');
+            LCD_Write_String("AM");
+        }
 
-        if(flag==0)
-            I2C_Ack();
-        else
-            I2C_Nack();
-        I2C_Ready();
-        return(buffer);
-}
-
-void I2C_Init()
-{
-    TRISB0=1;
- TRISB1=1;
- SSPSTAT=80;
-    SSPCON=0x28;
-
- SSPCON2=0;
-    SSPADD=((8000000/(4*100000))-1);
-    SSPIE=1;
-    SSPIF=0;
-}
-
-
-void I2C_Ready()
-{
-    while(!SSPIF);
-    SSPIF=0;
-}
-
-void I2C_Start_Wait(char slave_write_address)
-{
-  while(1)
-  {
-    SSPCON2bits.SEN=1;
-    while(SSPCON2bits.SEN);
-    SSPIF=0;
- if(!SSPSTATbits.S)
-        continue;
-    I2C_Write(slave_write_address);
-    if(ACKSTAT)
-    {
-        I2C_Stop();
-        continue;
+        hour = hour & (0x1f);
+        sprintf(secs,"%x ",sec);
+        sprintf(mins,"%x:",min);
+        sprintf(hours,"Tim:%x:",hour);
+        LCD_Set_Cursor('1', '0');
+        LCD_Write_String(hours);
+        LCD_Write_String(mins);
+        LCD_Write_String(secs);
     }
-    break;
-  }
-}
+    else{
 
-char I2C_Start(char slave_write_address)
-{
-    SSPCON2bits.SEN=1;
-    while(SSPCON2bits.SEN);
- SSPIF=0;
-    if(!SSPSTATbits.S)
-    return 0;
-    return (I2C_Write(slave_write_address));
+        hour = hour & (0x3f);
+        sprintf(secs,"%x ",sec);
+        sprintf(mins,"%x:",min);
+        sprintf(hours,"Tim:%x:",hour);
+        LCD_Set_Cursor('1','0');
+        LCD_Write_String(hours);
+        LCD_Write_String(mins);
+        LCD_Write_String(secs);
+    }
 
-}
+    RTC_Read_Calendar(3);
+    I2C_Stop();
+    sprintf(date,"Cal %x-",Date);
+    sprintf(month,"%x-",Month);
+    sprintf(year,"%x ",Year);
+    LCD_Set_Cursor('2','0');
+    LCD_Write_String(date);
+    LCD_Write_String(month);
+    LCD_Write_String(year);
 
-char I2C_Repeated_Start(char slave_read_address)
-{
-    RSEN = 1;
-    while(RSEN);
-    SSPIF = 0;
- if(!SSPSTATbits.S)
-    return 0;
-    I2C_Write(slave_read_address);
-    if (ACKSTAT)
-     return 1;
-    else
-     return 2;
-}
 
-char I2C_Stop()
-{
-    PEN = 1;
-    while(PEN);
-    if(!SSPSTATbits.P)
-        ;
-    return 0;
-}
 
-char I2C_Write(unsigned char data)
-{
-      SSPBUF = data;
-      I2C_Ready();
-      if (ACKSTAT)
-        return 1;
-      else
-        return 2;
-}
 
-void I2C_Ack()
-{
-    ACKDT=0;
- ACKEN=1;
-    while(ACKEN);
-}
+    switch(days[Day])
+    {
+        case 'S':
+                    LCD_Write_String("Sun");
+                    break;
+        case 'M':
+                    LCD_Write_String("Mon");
+                    break;
+        case 'T':
+                    LCD_Write_String("Tue");
+                    break;
+        case 'W':
+                    LCD_Write_String("Wed");
+                    break;
+        case 't':
+                    LCD_Write_String("Thu");
+                    break;
+        case 'F':
+                    LCD_Write_String("Fri");
+                    break;
+        case 's':
+                    LCD_Write_String("Sat");
+                    break;
+        default:
+                    LCD_Write_String("Inv");
+                    break;
 
-void I2C_Nack()
-{
-    ACKDT=1;
- ACKEN=1;
-    while(ACKEN);
+    }
+    _delay((unsigned long)((100)*(8000000/4000.0)));
 }

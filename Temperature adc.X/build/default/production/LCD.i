@@ -2514,16 +2514,16 @@ extern __bank0 __bit __timeout;
 
 
 
-void I2C_Ready();
-void I2C_Init();
+void I2C_Ready(void);
+void I2C_Init(void);
 char I2C_Start(char);
 void I2C_Start_Wait(char);
 
 char I2C_Repeated_Start(char);
-char I2C_Stop();
+char I2C_Stop(void);
 char I2C_Write(unsigned char);
-void I2C_Ack();
-void I2C_Nack();
+void I2C_Ack(void);
+void I2C_Nack(void);
 char I2C_Read(char flag);
 # 1 "LCD.c" 2
 
@@ -2531,7 +2531,7 @@ char I2C_Read(char flag);
 # 25 "./LCD.h"
 extern unsigned char RS, i2c_add, BackLight_State;
 
-void LCD_Init();
+void LCD_Init(void);
 void IO_Expander_Write(unsigned char Data);
 void LCD_Write_4Bit(unsigned char Nibble);
 void LCD_CMD(unsigned char CMD);
@@ -2539,11 +2539,11 @@ void LCD_Set_Cursor(unsigned char ROW, unsigned char COL);
 void LCD_Write_Char(const char);
 void LCD_Write_String(const char*);
 void LCD_String_xy(char, char , const char *);
-void Backlight();
-void noBacklight();
-void LCD_SR();
-void LCD_SL();
-void LCD_Clear();
+void Backlight(void);
+void noBacklight(void);
+void LCD_SR(void);
+void LCD_SL(void);
+void LCD_Clear(void);
 # 2 "LCD.c" 2
 
 # 1 "./Configs.h" 1

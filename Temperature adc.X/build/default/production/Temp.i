@@ -2510,7 +2510,6 @@ extern __bank0 __bit __timeout;
 # 29 "C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC16Fxxx_DFP/1.3.42/xc8\\pic\\include\\xc.h" 2 3
 # 4 "./Temp.h" 2
 
-
 # 1 "C:\\Program Files\\Microchip\\xc8\\v2.35\\pic\\include\\c90\\stdio.h" 1 3
 
 
@@ -2608,7 +2607,7 @@ extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupport
 #pragma printf_check(sprintf) const
 extern int sprintf(char *, const char *, ...);
 extern int printf(const char *, ...);
-# 6 "./Temp.h" 2
+# 5 "./Temp.h" 2
 
 # 1 "C:\\Program Files\\Microchip\\xc8\\v2.35\\pic\\include\\c90\\stdlib.h" 1 3
 
@@ -2693,7 +2692,7 @@ extern char * ltoa(char * buf, long val, int base);
 extern char * ultoa(char * buf, unsigned long val, int base);
 
 extern char * ftoa(float f, int * status);
-# 7 "./Temp.h" 2
+# 6 "./Temp.h" 2
 
 # 1 "C:\\Program Files\\Microchip\\xc8\\v2.35\\pic\\include\\c90\\string.h" 1 3
 # 14 "C:\\Program Files\\Microchip\\xc8\\v2.35\\pic\\include\\c90\\string.h" 3
@@ -2726,13 +2725,13 @@ extern char * strchr(const char *, int);
 extern char * strichr(const char *, int);
 extern char * strrchr(const char *, int);
 extern char * strrichr(const char *, int);
-# 8 "./Temp.h" 2
+# 7 "./Temp.h" 2
 
 # 1 "./LCD.h" 1
 # 25 "./LCD.h"
 extern unsigned char RS, i2c_add, BackLight_State;
 
-void LCD_Init();
+void LCD_Init(void);
 void IO_Expander_Write(unsigned char Data);
 void LCD_Write_4Bit(unsigned char Nibble);
 void LCD_CMD(unsigned char CMD);
@@ -2740,27 +2739,27 @@ void LCD_Set_Cursor(unsigned char ROW, unsigned char COL);
 void LCD_Write_Char(const char);
 void LCD_Write_String(const char*);
 void LCD_String_xy(char, char , const char *);
-void Backlight();
-void noBacklight();
-void LCD_SR();
-void LCD_SL();
-void LCD_Clear();
-# 9 "./Temp.h" 2
+void Backlight(void);
+void noBacklight(void);
+void LCD_SR(void);
+void LCD_SL(void);
+void LCD_Clear(void);
+# 8 "./Temp.h" 2
 
 # 1 "./I2C_Master.h" 1
 # 18 "./I2C_Master.h"
-void I2C_Ready();
-void I2C_Init();
+void I2C_Ready(void);
+void I2C_Init(void);
 char I2C_Start(char);
 void I2C_Start_Wait(char);
 
 char I2C_Repeated_Start(char);
-char I2C_Stop();
+char I2C_Stop(void);
 char I2C_Write(unsigned char);
-void I2C_Ack();
-void I2C_Nack();
+void I2C_Ack(void);
+void I2C_Nack(void);
 char I2C_Read(char flag);
-# 10 "./Temp.h" 2
+# 9 "./Temp.h" 2
 
 # 1 "./Configs.h" 1
 # 21 "./Configs.h"
@@ -2778,21 +2777,96 @@ char I2C_Read(char flag);
 
 #pragma config BOR4V = BOR40V
 #pragma config WRT = OFF
+# 10 "./Temp.h" 2
+
+# 1 "./Temp.h" 1
 # 11 "./Temp.h" 2
+
+# 1 "./RTC.h" 1
+# 11 "./RTC.h"
+# 1 "./Temp.h" 1
+# 11 "./RTC.h" 2
+
+# 1 "./RTC.h" 1
+# 12 "./RTC.h" 2
+
+# 1 "./DisplayClock.h" 1
+# 11 "./DisplayClock.h"
+# 1 "./Temp.h" 1
+# 11 "./DisplayClock.h" 2
+
+# 1 "./RTC.h" 1
+# 12 "./DisplayClock.h" 2
+
+# 1 "./DisplayClock.h" 1
+# 13 "./DisplayClock.h" 2
+
+# 1 "./Pinout.h" 1
+# 14 "./DisplayClock.h" 2
+
+# 1 "./LED.h" 1
+# 11 "./LED.h"
+# 1 "./Temp.h" 1
+# 11 "./LED.h" 2
+
+# 1 "./RTC.h" 1
+# 12 "./LED.h" 2
+
+# 1 "./DisplayClock.h" 1
+# 13 "./LED.h" 2
+
+
+# 1 "./LED.h" 1
+# 15 "./LED.h" 2
+
+
+
+
+
+void LED_Init(void);
+void LED_Color(unsigned char brt);
+void sendByte (unsigned char b);
+void sendRGB (unsigned char r, unsigned char g, unsigned char b);
+# 15 "./DisplayClock.h" 2
+
+
+extern int sec,min,hour;
+extern int Day,Date,Month,Year;
+extern char secs[10],mins[10],hours[10];
+extern char date[10],month[10],year[10];
+extern char Clock_type;
+extern char AM_PM;
+extern char days[7];
+
+
+void printClock(void);
+# 13 "./RTC.h" 2
+# 23 "./RTC.h"
+extern int sec,min,hour,Day,Date,Month,Year;
+
+void RTC_Read_Clock(char read_clock_address);
+void RTC_Read_Calendar(char read_calendar_address);
+void RTC_Clock_Write(char sec, char min, char hour, char AM_PM);
+void RTC_Calendar_Write(char day, char date, char month, char year);
+# 12 "./Temp.h" 2
+
+
+
 
 
 extern unsigned short result;
-extern int temperature;
+extern int temperature_c, temperature_f;
 extern int Temp_Mode;
 
 
-void Update_Farenheit();
-void Update_Celsius();
+void Update_Farenheit(void);
+void Update_Celsius(void);
+void DisplayTemp(void);
 # 1 "Temp.c" 2
 
 
 unsigned short result = 0;
-int temperature = 0;
+int temperature_c = 0, temperature_f = 0;
 int Temp_Mode = 0;
 
 
@@ -2808,13 +2882,13 @@ void Update_Farenheit()
     result = ADRESH;
     result = result << 8;
     result = result | ADRESL;
-    temperature = .32640625*result -67;
+    temperature_f = .32640625*result -67;
 
     PIR1bits.ADIF = 0;
 
-    temperature = .32640625*result - 67;
+    temperature_f = .32640625*result - 67+64;
 
-    Temp_Mode = 0;
+
 
 }
 
@@ -2832,9 +2906,21 @@ void Update_Celsius()
     result = result | ADRESL;
 
     PIR1bits.ADIF = 0;
-    temperature = .17578125*result - 55;
+    temperature_c = .17578125*result - 55+35;
 
     Temp_Mode = 1;
 
+
+}
+void DisplayTemp()
+{
+    char buffer1[16], buffer2[16];
+    sprintf(buffer1, "Temp:%3d*C", temperature_c);
+    _delay((unsigned long)((1)*(8000000/4000.0)));
+    LCD_Write_String(buffer1);
+    LCD_Set_Cursor('2','0');
+    sprintf(buffer2, "Temp:%3d*F", temperature_f);
+    LCD_Write_String(buffer2);
+    _delay((unsigned long)((200)*(8000000/4000.0)));
 
 }

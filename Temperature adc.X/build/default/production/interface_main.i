@@ -1,4 +1,4 @@
-# 1 "C:\\Program Files\\Microchip\\xc8\\v2.35\\pic\\sources\\c90\\pic\\__eeprom.c"
+# 1 "interface_main.c"
 # 1 "<built-in>" 1
 # 1 "<built-in>" 3
 # 288 "<built-in>" 3
@@ -6,7 +6,11 @@
 # 1 "<built-in>" 2
 # 1 "C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC16Fxxx_DFP/1.3.42/xc8\\pic\\include\\language_support.h" 1 3
 # 2 "<built-in>" 2
-# 1 "C:\\Program Files\\Microchip\\xc8\\v2.35\\pic\\sources\\c90\\pic\\__eeprom.c" 2
+# 1 "interface_main.c" 2
+
+
+
+
 # 1 "C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC16Fxxx_DFP/1.3.42/xc8\\pic\\include\\xc.h" 1 3
 # 18 "C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC16Fxxx_DFP/1.3.42/xc8\\pic\\include\\xc.h" 3
 extern const char __xc8_OPTIM_SPEED;
@@ -2504,176 +2508,515 @@ extern __bank0 unsigned char __resetbits;
 extern __bank0 __bit __powerdown;
 extern __bank0 __bit __timeout;
 # 29 "C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC16Fxxx_DFP/1.3.42/xc8\\pic\\include\\xc.h" 2 3
-# 1 "C:\\Program Files\\Microchip\\xc8\\v2.35\\pic\\sources\\c90\\pic\\__eeprom.c" 2
+# 5 "interface_main.c" 2
+
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.35\\pic\\include\\c90\\stdio.h" 1 3
+
+
+
+# 1 "C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC16Fxxx_DFP/1.3.42/xc8\\pic\\include\\__size_t.h" 1 3
+
+
+
+typedef unsigned size_t;
+# 4 "C:\\Program Files\\Microchip\\xc8\\v2.35\\pic\\include\\c90\\stdio.h" 2 3
+
+# 1 "C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC16Fxxx_DFP/1.3.42/xc8\\pic\\include\\__null.h" 1 3
+# 5 "C:\\Program Files\\Microchip\\xc8\\v2.35\\pic\\include\\c90\\stdio.h" 2 3
 
 
 
 
-void
-__eecpymem(volatile unsigned char *to, __eeprom unsigned char * from, unsigned char size)
+
+
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.35\\pic\\include\\c90\\stdarg.h" 1 3
+
+
+
+
+
+
+typedef void * va_list[1];
+
+#pragma intrinsic(__va_start)
+extern void * __va_start(void);
+
+#pragma intrinsic(__va_arg)
+extern void * __va_arg(void *, ...);
+# 11 "C:\\Program Files\\Microchip\\xc8\\v2.35\\pic\\include\\c90\\stdio.h" 2 3
+# 43 "C:\\Program Files\\Microchip\\xc8\\v2.35\\pic\\include\\c90\\stdio.h" 3
+struct __prbuf
 {
- volatile unsigned char *cp = to;
+ char * ptr;
+ void (* func)(char);
+};
+# 85 "C:\\Program Files\\Microchip\\xc8\\v2.35\\pic\\include\\c90\\stdio.h" 3
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.35\\pic\\include\\c90\\conio.h" 1 3
 
- while (EECON1bits.WR) continue;
- EEADR = (unsigned char)from;
- while(size--) {
-  while (EECON1bits.WR) continue;
 
-  EECON1 &= 0x7F;
 
-  EECON1bits.RD = 1;
-  *cp++ = EEDATA;
-  ++EEADR;
- }
-# 36 "C:\\Program Files\\Microchip\\xc8\\v2.35\\pic\\sources\\c90\\pic\\__eeprom.c"
-}
 
-void
-__memcpyee(__eeprom unsigned char * to, const unsigned char *from, unsigned char size)
-{
- const unsigned char *ptr =from;
 
- while (EECON1bits.WR) continue;
- EEADR = (unsigned char)to - 1U;
 
- EECON1 &= 0x7F;
 
- while(size--) {
-  while (EECON1bits.WR) {
-   continue;
-  }
-  EEDATA = *ptr++;
-  ++EEADR;
-  STATUSbits.CARRY = 0;
-  if (INTCONbits.GIE) {
-   STATUSbits.CARRY = 1;
-  }
-  INTCONbits.GIE = 0;
-  EECON1bits.WREN = 1;
-  EECON2 = 0x55;
-  EECON2 = 0xAA;
-  EECON1bits.WR = 1;
-  EECON1bits.WREN = 0;
-  if (STATUSbits.CARRY) {
-   INTCONbits.GIE = 1;
-  }
- }
-# 101 "C:\\Program Files\\Microchip\\xc8\\v2.35\\pic\\sources\\c90\\pic\\__eeprom.c"
-}
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.35\\pic\\include\\c90\\errno.h" 1 3
+# 29 "C:\\Program Files\\Microchip\\xc8\\v2.35\\pic\\include\\c90\\errno.h" 3
+extern int errno;
+# 8 "C:\\Program Files\\Microchip\\xc8\\v2.35\\pic\\include\\c90\\conio.h" 2 3
 
-unsigned char
-__eetoc(__eeprom void *addr)
-{
- unsigned char data;
- __eecpymem((unsigned char *) &data,addr,1);
- return data;
-}
 
-unsigned int
-__eetoi(__eeprom void *addr)
-{
- unsigned int data;
- __eecpymem((unsigned char *) &data,addr,2);
- return data;
-}
 
-#pragma warning push
-#pragma warning disable 2040
-__uint24
-__eetom(__eeprom void *addr)
-{
- __uint24 data;
- __eecpymem((unsigned char *) &data,addr,3);
- return data;
-}
-#pragma warning pop
 
-unsigned long
-__eetol(__eeprom void *addr)
-{
- unsigned long data;
- __eecpymem((unsigned char *) &data,addr,4);
- return data;
-}
+extern void init_uart(void);
 
-#pragma warning push
-#pragma warning disable 1516
-unsigned long long
-__eetoo(__eeprom void *addr)
-{
- unsigned long long data;
- __eecpymem((unsigned char *) &data,addr,8);
- return data;
-}
-#pragma warning pop
+extern char getch(void);
+extern char getche(void);
+extern void putch(char);
+extern void ungetch(char);
 
-unsigned char
-__ctoee(__eeprom void *addr, unsigned char data)
-{
- __memcpyee(addr,(unsigned char *) &data,1);
- return data;
-}
+extern __bit kbhit(void);
 
-unsigned int
-__itoee(__eeprom void *addr, unsigned int data)
-{
- __memcpyee(addr,(unsigned char *) &data,2);
- return data;
-}
 
-#pragma warning push
-#pragma warning disable 2040
-__uint24
-__mtoee(__eeprom void *addr, __uint24 data)
-{
- __memcpyee(addr,(unsigned char *) &data,3);
- return data;
-}
-#pragma warning pop
 
-unsigned long
-__ltoee(__eeprom void *addr, unsigned long data)
-{
- __memcpyee(addr,(unsigned char *) &data,4);
- return data;
-}
+extern char * cgets(char *);
+extern void cputs(const char *);
+# 85 "C:\\Program Files\\Microchip\\xc8\\v2.35\\pic\\include\\c90\\stdio.h" 2 3
 
-#pragma warning push
-#pragma warning disable 1516
-unsigned long long
-__otoee(__eeprom void *addr, unsigned long long data)
-{
- __memcpyee(addr,(unsigned char *) &data,8);
- return data;
-}
-#pragma warning pop
 
-float
-__eetoft(__eeprom void *addr)
-{
- float data;
- __eecpymem((unsigned char *) &data,addr,3);
- return data;
-}
 
-double
-__eetofl(__eeprom void *addr)
-{
- double data;
- __eecpymem((unsigned char *) &data,addr,4);
- return data;
-}
+extern int cprintf(char *, ...);
+#pragma printf_check(cprintf)
 
-float
-__fttoee(__eeprom void *addr, float data)
-{
- __memcpyee(addr,(unsigned char *) &data,3);
- return data;
-}
 
-double
-__fltoee(__eeprom void *addr, double data)
-{
- __memcpyee(addr,(unsigned char *) &data,4);
- return data;
+
+extern int _doprnt(struct __prbuf *, const register char *, register va_list);
+# 180 "C:\\Program Files\\Microchip\\xc8\\v2.35\\pic\\include\\c90\\stdio.h" 3
+#pragma printf_check(vprintf) const
+#pragma printf_check(vsprintf) const
+
+extern char * gets(char *);
+extern int puts(const char *);
+extern int scanf(const char *, ...) __attribute__((unsupported("scanf() is not supported by this compiler")));
+extern int sscanf(const char *, const char *, ...) __attribute__((unsupported("sscanf() is not supported by this compiler")));
+extern int vprintf(const char *, va_list) __attribute__((unsupported("vprintf() is not supported by this compiler")));
+extern int vsprintf(char *, const char *, va_list) __attribute__((unsupported("vsprintf() is not supported by this compiler")));
+extern int vscanf(const char *, va_list ap) __attribute__((unsupported("vscanf() is not supported by this compiler")));
+extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupported("vsscanf() is not supported by this compiler")));
+
+#pragma printf_check(printf) const
+#pragma printf_check(sprintf) const
+extern int sprintf(char *, const char *, ...);
+extern int printf(const char *, ...);
+# 6 "interface_main.c" 2
+
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.35\\pic\\include\\c90\\stdlib.h" 1 3
+
+
+
+
+
+
+typedef unsigned short wchar_t;
+
+
+
+
+
+
+
+typedef struct {
+ int rem;
+ int quot;
+} div_t;
+typedef struct {
+ unsigned rem;
+ unsigned quot;
+} udiv_t;
+typedef struct {
+ long quot;
+ long rem;
+} ldiv_t;
+typedef struct {
+ unsigned long quot;
+ unsigned long rem;
+} uldiv_t;
+# 65 "C:\\Program Files\\Microchip\\xc8\\v2.35\\pic\\include\\c90\\stdlib.h" 3
+extern double atof(const char *);
+extern double strtod(const char *, const char **);
+extern int atoi(const char *);
+extern unsigned xtoi(const char *);
+extern long atol(const char *);
+
+
+
+extern long strtol(const char *, char **, int);
+
+extern int rand(void);
+extern void srand(unsigned int);
+extern void * calloc(size_t, size_t);
+extern div_t div(int numer, int denom);
+extern udiv_t udiv(unsigned numer, unsigned denom);
+extern ldiv_t ldiv(long numer, long denom);
+extern uldiv_t uldiv(unsigned long numer,unsigned long denom);
+
+
+
+extern unsigned long _lrotl(unsigned long value, unsigned int shift);
+extern unsigned long _lrotr(unsigned long value, unsigned int shift);
+extern unsigned int _rotl(unsigned int value, unsigned int shift);
+extern unsigned int _rotr(unsigned int value, unsigned int shift);
+
+
+
+
+extern void * malloc(size_t);
+extern void free(void *);
+extern void * realloc(void *, size_t);
+# 104 "C:\\Program Files\\Microchip\\xc8\\v2.35\\pic\\include\\c90\\stdlib.h" 3
+extern int atexit(void (*)(void));
+extern char * getenv(const char *);
+extern char ** environ;
+extern int system(char *);
+extern void qsort(void *, size_t, size_t, int (*)(const void *, const void *));
+extern void * bsearch(const void *, void *, size_t, size_t, int(*)(const void *, const void *));
+extern int abs(int);
+extern long labs(long);
+
+extern char * itoa(char * buf, int val, int base);
+extern char * utoa(char * buf, unsigned val, int base);
+
+
+
+
+extern char * ltoa(char * buf, long val, int base);
+extern char * ultoa(char * buf, unsigned long val, int base);
+
+extern char * ftoa(float f, int * status);
+# 7 "interface_main.c" 2
+
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.35\\pic\\include\\c90\\string.h" 1 3
+# 14 "C:\\Program Files\\Microchip\\xc8\\v2.35\\pic\\include\\c90\\string.h" 3
+extern void * memcpy(void *, const void *, size_t);
+extern void * memmove(void *, const void *, size_t);
+extern void * memset(void *, int, size_t);
+# 36 "C:\\Program Files\\Microchip\\xc8\\v2.35\\pic\\include\\c90\\string.h" 3
+extern char * strcat(char *, const char *);
+extern char * strcpy(char *, const char *);
+extern char * strncat(char *, const char *, size_t);
+extern char * strncpy(char *, const char *, size_t);
+extern char * strdup(const char *);
+extern char * strtok(char *, const char *);
+
+
+extern int memcmp(const void *, const void *, size_t);
+extern int strcmp(const char *, const char *);
+extern int stricmp(const char *, const char *);
+extern int strncmp(const char *, const char *, size_t);
+extern int strnicmp(const char *, const char *, size_t);
+extern void * memchr(const void *, int, size_t);
+extern size_t strcspn(const char *, const char *);
+extern char * strpbrk(const char *, const char *);
+extern size_t strspn(const char *, const char *);
+extern char * strstr(const char *, const char *);
+extern char * stristr(const char *, const char *);
+extern char * strerror(int);
+extern size_t strlen(const char *);
+extern char * strchr(const char *, int);
+extern char * strichr(const char *, int);
+extern char * strrchr(const char *, int);
+extern char * strrichr(const char *, int);
+# 8 "interface_main.c" 2
+
+# 1 "./LCD.h" 1
+# 25 "./LCD.h"
+extern unsigned char RS, i2c_add, BackLight_State;
+
+void LCD_Init(void);
+void IO_Expander_Write(unsigned char Data);
+void LCD_Write_4Bit(unsigned char Nibble);
+void LCD_CMD(unsigned char CMD);
+void LCD_Set_Cursor(unsigned char ROW, unsigned char COL);
+void LCD_Write_Char(const char);
+void LCD_Write_String(const char*);
+void LCD_String_xy(char, char , const char *);
+void Backlight(void);
+void noBacklight(void);
+void LCD_SR(void);
+void LCD_SL(void);
+void LCD_Clear(void);
+# 9 "interface_main.c" 2
+
+# 1 "./I2C_Master.h" 1
+# 18 "./I2C_Master.h"
+void I2C_Ready(void);
+void I2C_Init(void);
+char I2C_Start(char);
+void I2C_Start_Wait(char);
+
+char I2C_Repeated_Start(char);
+char I2C_Stop(void);
+char I2C_Write(unsigned char);
+void I2C_Ack(void);
+void I2C_Nack(void);
+char I2C_Read(char flag);
+# 10 "interface_main.c" 2
+
+# 1 "./Configs.h" 1
+# 21 "./Configs.h"
+#pragma config FOSC = HS
+#pragma config WDTE = OFF
+#pragma config PWRTE = OFF
+#pragma config MCLRE = OFF
+#pragma config CP = OFF
+#pragma config CPD = OFF
+#pragma config BOREN = ON
+#pragma config IESO = ON
+#pragma config FCMEN = ON
+#pragma config LVP = OFF
+
+
+#pragma config BOR4V = BOR40V
+#pragma config WRT = OFF
+# 11 "interface_main.c" 2
+
+# 1 "./Temp.h" 1
+# 11 "./Temp.h"
+# 1 "./Temp.h" 1
+# 11 "./Temp.h" 2
+
+# 1 "./RTC.h" 1
+# 11 "./RTC.h"
+# 1 "./Temp.h" 1
+# 11 "./RTC.h" 2
+
+# 1 "./RTC.h" 1
+# 12 "./RTC.h" 2
+
+# 1 "./DisplayClock.h" 1
+# 11 "./DisplayClock.h"
+# 1 "./Temp.h" 1
+# 11 "./DisplayClock.h" 2
+
+# 1 "./RTC.h" 1
+# 12 "./DisplayClock.h" 2
+
+# 1 "./DisplayClock.h" 1
+# 13 "./DisplayClock.h" 2
+
+# 1 "./Pinout.h" 1
+# 14 "./DisplayClock.h" 2
+
+# 1 "./LED.h" 1
+# 11 "./LED.h"
+# 1 "./Temp.h" 1
+# 11 "./LED.h" 2
+
+# 1 "./RTC.h" 1
+# 12 "./LED.h" 2
+
+# 1 "./DisplayClock.h" 1
+# 13 "./LED.h" 2
+
+
+# 1 "./LED.h" 1
+# 15 "./LED.h" 2
+
+
+
+
+
+void LED_Init(void);
+void LED_Color(unsigned char brt);
+void sendByte (unsigned char b);
+void sendRGB (unsigned char r, unsigned char g, unsigned char b);
+# 15 "./DisplayClock.h" 2
+
+
+extern int sec,min,hour;
+extern int Day,Date,Month,Year;
+extern char secs[10],mins[10],hours[10];
+extern char date[10],month[10],year[10];
+extern char Clock_type;
+extern char AM_PM;
+extern char days[7];
+
+
+void printClock(void);
+# 13 "./RTC.h" 2
+# 23 "./RTC.h"
+extern int sec,min,hour,Day,Date,Month,Year;
+
+void RTC_Read_Clock(char read_clock_address);
+void RTC_Read_Calendar(char read_calendar_address);
+void RTC_Clock_Write(char sec, char min, char hour, char AM_PM);
+void RTC_Calendar_Write(char day, char date, char month, char year);
+# 12 "./Temp.h" 2
+
+
+
+
+
+extern unsigned short result;
+extern int temperature_c, temperature_f;
+extern int Temp_Mode;
+
+
+void Update_Farenheit(void);
+void Update_Celsius(void);
+void DisplayTemp(void);
+# 12 "interface_main.c" 2
+
+
+
+
+
+# 1 "./RotaryEncoder.h" 1
+# 19 "./RotaryEncoder.h"
+extern int lastStateCLK;
+
+extern int btnState;
+
+extern unsigned char brightness;
+extern int colorIncrement;
+
+
+
+
+void RotaryEncoder_Init(void);
+void ChangeBrightness(void);
+void ChangeColor(void);
+# 17 "interface_main.c" 2
+
+# 1 "./PhotoResistor.h" 1
+# 17 "./PhotoResistor.h"
+extern unsigned int photo_result;
+
+void PhotoResistor_Init(void);
+void ReadPhoto(void);
+# 18 "interface_main.c" 2
+# 29 "interface_main.c"
+unsigned short result;
+
+unsigned short alarmTime;
+
+void main (void){
+
+    TRISB = 0b00110000;
+    ANSEL = 0;
+    ANSELH = 0x00;
+    PORTB = 0b00110000;
+    TRISE = 0x0;
+
+    I2C_Init();
+    LCD_Init();
+    LED_Init();
+    RotaryEncoder_Init();
+
+    RTC_Clock_Write(0x00, 0x14, 0x10, 0x40);
+    RTC_Calendar_Write(0x1, 0x22, 0x04, 0x18);
+
+    short int displayMode = 0;
+    short int ledMode = 1;
+
+    while(1){
+
+
+
+        if(ledMode == 1)
+        {
+
+            ChangeBrightness();
+            ChangeColor();
+
+            if(RB4 == 0)
+            {
+                while(RB4 == 0);
+                ledMode = ledMode + 1;
+            }
+        }
+        else if(ledMode == 2)
+        {
+            ReadPhoto();
+
+
+            if(RB4 == 0)
+            {
+                while(RB4 == 0);
+                ledMode = ledMode + 1;
+            }
+        }
+
+
+        if (displayMode == 0)
+        {
+            char buffer3[16];
+            LCD_Clear();
+            sprintf(buffer3, "%s", "Hello There");
+            LCD_Write_String(buffer3);
+            _delay((unsigned long)((100)*(8000000/4000.0)));
+
+            if(RE3 == 0 && RB5 == 0)
+            {
+                while(RE3 == 0 && RB5 == 0);
+                displayMode = displayMode+1;
+            }
+        }
+
+        else if (displayMode == 1)
+        {
+            LCD_Clear();
+            printClock();
+            if(RE3 == 0 && RB5 == 0)
+            {
+                while(RE3 == 0 && RB5 == 0);
+                displayMode = displayMode+1;
+
+            }
+        }
+        else if (displayMode == 2)
+        {
+
+            ANSELbits.ANS3 = 1;
+
+
+            ADCON0bits.ADCS = 0b11;
+            ADCON0bits.CHS = 0b0011;
+
+
+            ADCON1bits.VCFG1 = 0;
+            ADCON1bits.VCFG0 = 0;
+            ADCON1bits.ADFM = 1;
+
+
+            PIR1bits.ADIF = 0;
+
+
+            PIE1bits.ADIE = 1;
+
+            ADCON0bits.ADON = 1;
+
+            LCD_Clear();
+            Update_Celsius();
+            Update_Farenheit();
+            DisplayTemp();
+
+            if(RE3 == 0 && RB5 == 0)
+            {
+                while(RE3 == 0 && RB5 == 0);
+                displayMode = displayMode+1;
+            }
+        }
+
+       _delay((unsigned long)((10)*(8000000/4000.0)));
+       if(displayMode >= 3)
+       {
+           displayMode = 0;
+       }
+       if(ledMode >= 2)
+       {
+           ledMode = 1;
+       }
+
+    }
+
 }

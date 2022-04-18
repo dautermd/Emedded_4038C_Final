@@ -1,23 +1,16 @@
 Version 4.0 HI-TECH Software Intermediate Code
-"30 ./LCD.h
-[; ;./LCD.h: 30: void LCD_CMD(unsigned char CMD);
-[v _LCD_CMD `(v ~T0 @X0 0 ef1`uc ]
-"33
-[; ;./LCD.h: 33: void LCD_Write_String(const char*);
-[v _LCD_Write_String `(v ~T0 @X0 0 ef1`*Cuc ]
-"28
-[; ;./LCD.h: 28: void IO_Expander_Write(unsigned char Data);
-[v _IO_Expander_Write `(v ~T0 @X0 0 ef1`uc ]
-[v F36 `(v ~T0 @X0 1 tf1`ul ]
-"12 C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC16Fxxx_DFP/1.3.42/xc8\pic\include\builtins.h
-[v __delay `JF36 ~T0 @X0 0 e ]
-[p i __delay ]
 "20 ./I2C_Master.h
 [; ;./I2C_Master.h: 20: char I2C_Start(char);
 [v _I2C_Start `(uc ~T0 @X0 0 ef1`uc ]
 "25
 [; ;./I2C_Master.h: 25: char I2C_Write(unsigned char);
 [v _I2C_Write `(uc ~T0 @X0 0 ef1`uc ]
+"23
+[; ;./I2C_Master.h: 23: char I2C_Repeated_Start(char);
+[v _I2C_Repeated_Start `(uc ~T0 @X0 0 ef1`uc ]
+"28
+[; ;./I2C_Master.h: 28: char I2C_Read(char flag);
+[v _I2C_Read `(uc ~T0 @X0 0 ef1`uc ]
 "24
 [; ;./I2C_Master.h: 24: char I2C_Stop(void);
 [v _I2C_Stop `(uc ~T0 @X0 0 ef ]
@@ -273,430 +266,193 @@ Version 4.0 HI-TECH Software Intermediate Code
 [p x BOR4V  =  BOR40V    ]
 "34
 [p x WRT  =  OFF         ]
-"6 LCD.c
-[; ;LCD.c: 6: unsigned char RS, BackLight_State = 0x08;
-[v _RS `uc ~T0 @X0 1 e ]
-[v _BackLight_State `uc ~T0 @X0 1 e ]
-[i _BackLight_State
--> -> 8 `i `uc
+"13 RTC.c
+[; ;RTC.c: 13: int sec=0,min=0,hour=0;
+[v _sec `i ~T0 @X0 1 e ]
+[i _sec
+-> 0 `i
 ]
-"8
-[; ;LCD.c: 8: void LCD_String_xy(char row,char pos,const char *msg)
-[v _LCD_String_xy `(v ~T0 @X0 1 ef3`uc`uc`*Cuc ]
-"9
-[; ;LCD.c: 9: {
-{
-[e :U _LCD_String_xy ]
-"8
-[; ;LCD.c: 8: void LCD_String_xy(char row,char pos,const char *msg)
-[v _row `uc ~T0 @X0 1 r1 ]
-[v _pos `uc ~T0 @X0 1 r2 ]
-[v _msg `*Cuc ~T0 @X0 1 r3 ]
-"9
-[; ;LCD.c: 9: {
-[f ]
-"10
-[; ;LCD.c: 10:     char location=0;
-[v _location `uc ~T0 @X0 1 a ]
-[e = _location -> -> 0 `i `uc ]
-"11
-[; ;LCD.c: 11:     if(row<=1)
-[e $ ! <= -> _row `i -> 1 `i 140  ]
-"12
-[; ;LCD.c: 12:     {
-{
-"13
-[; ;LCD.c: 13:         location = (0x80) | ((pos) & 0x0f);
-[e = _location -> | -> 128 `i & -> _pos `i -> 15 `i `uc ]
+[v _min `i ~T0 @X0 1 e ]
+[i _min
+-> 0 `i
+]
+[v _hour `i ~T0 @X0 1 e ]
+[i _hour
+-> 0 `i
+]
 "14
-[; ;LCD.c: 14:         LCD_CMD(location);
-[e ( _LCD_CMD (1 -> _location `uc ]
-"15
-[; ;LCD.c: 15:     }
-}
-[e $U 141  ]
+[; ;RTC.c: 14: int Day=0,Date=0,Month=0,Year=0;
+[v _Day `i ~T0 @X0 1 e ]
+[i _Day
+-> 0 `i
+]
+[v _Date `i ~T0 @X0 1 e ]
+[i _Date
+-> 0 `i
+]
+[v _Month `i ~T0 @X0 1 e ]
+[i _Month
+-> 0 `i
+]
+[v _Year `i ~T0 @X0 1 e ]
+[i _Year
+-> 0 `i
+]
 "16
-[; ;LCD.c: 16:     else
-[e :U 140 ]
+[; ;RTC.c: 16: void RTC_Read_Clock(char read_clock_address)
+[v _RTC_Read_Clock `(v ~T0 @X0 1 ef1`uc ]
 "17
-[; ;LCD.c: 17:     {
+[; ;RTC.c: 17: {
 {
+[e :U _RTC_Read_Clock ]
+"16
+[; ;RTC.c: 16: void RTC_Read_Clock(char read_clock_address)
+[v _read_clock_address `uc ~T0 @X0 1 r1 ]
+"17
+[; ;RTC.c: 17: {
+[f ]
 "18
-[; ;LCD.c: 18:         location = (0xC0) | ((pos) & 0x0f);
-[e = _location -> | -> 192 `i & -> _pos `i -> 15 `i `uc ]
+[; ;RTC.c: 18:     I2C_Start(0xD0);
+[e ( _I2C_Start (1 -> -> 208 `i `uc ]
 "19
-[; ;LCD.c: 19:         LCD_CMD(location);
-[e ( _LCD_CMD (1 -> _location `uc ]
+[; ;RTC.c: 19:     I2C_Write(read_clock_address);
+[e ( _I2C_Write (1 -> _read_clock_address `uc ]
 "20
-[; ;LCD.c: 20:     }
-}
-[e :U 141 ]
+[; ;RTC.c: 20:     I2C_Repeated_Start(0xD1);
+[e ( _I2C_Repeated_Start (1 -> -> 209 `i `uc ]
+"21
+[; ;RTC.c: 21:     sec = I2C_Read(0);
+[e = _sec -> ( _I2C_Read (1 -> -> 0 `i `uc `i ]
+"22
+[; ;RTC.c: 22:     min = I2C_Read(0);
+[e = _min -> ( _I2C_Read (1 -> -> 0 `i `uc `i ]
 "23
-[; ;LCD.c: 23:     LCD_Write_String(msg);
-[e ( _LCD_Write_String (1 _msg ]
+[; ;RTC.c: 23:     hour= I2C_Read(1);
+[e = _hour -> ( _I2C_Read (1 -> -> 1 `i `uc `i ]
 "25
-[; ;LCD.c: 25: }
+[; ;RTC.c: 25: }
 [e :UE 139 ]
 }
 "27
-[; ;LCD.c: 27: void LCD_Init()
-[v _LCD_Init `(v ~T0 @X0 1 ef ]
+[; ;RTC.c: 27: void RTC_Read_Calendar(char read_calendar_address)
+[v _RTC_Read_Calendar `(v ~T0 @X0 1 ef1`uc ]
 "28
-[; ;LCD.c: 28: {
+[; ;RTC.c: 28: {
 {
-[e :U _LCD_Init ]
+[e :U _RTC_Read_Calendar ]
+"27
+[; ;RTC.c: 27: void RTC_Read_Calendar(char read_calendar_address)
+[v _read_calendar_address `uc ~T0 @X0 1 r1 ]
+"28
+[; ;RTC.c: 28: {
 [f ]
 "29
-[; ;LCD.c: 29:   IO_Expander_Write(0x00);
-[e ( _IO_Expander_Write (1 -> -> 0 `i `uc ]
+[; ;RTC.c: 29:     I2C_Start(0xD0);
+[e ( _I2C_Start (1 -> -> 208 `i `uc ]
 "30
-[; ;LCD.c: 30:   _delay((unsigned long)((30)*(8000000/4000.0)));
-[e ( __delay (1 -> * -> -> 30 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
+[; ;RTC.c: 30:     I2C_Write(read_calendar_address);
+[e ( _I2C_Write (1 -> _read_calendar_address `uc ]
 "31
-[; ;LCD.c: 31:   LCD_CMD(0x03);
-[e ( _LCD_CMD (1 -> -> 3 `i `uc ]
+[; ;RTC.c: 31:     I2C_Repeated_Start(0xD1);
+[e ( _I2C_Repeated_Start (1 -> -> 209 `i `uc ]
 "32
-[; ;LCD.c: 32:   _delay((unsigned long)((5)*(8000000/4000.0)));
-[e ( __delay (1 -> * -> -> 5 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
+[; ;RTC.c: 32:     Day = I2C_Read(0);
+[e = _Day -> ( _I2C_Read (1 -> -> 0 `i `uc `i ]
 "33
-[; ;LCD.c: 33:   LCD_CMD(0x03);
-[e ( _LCD_CMD (1 -> -> 3 `i `uc ]
+[; ;RTC.c: 33:     Date = I2C_Read(0);
+[e = _Date -> ( _I2C_Read (1 -> -> 0 `i `uc `i ]
 "34
-[; ;LCD.c: 34:   _delay((unsigned long)((5)*(8000000/4000.0)));
-[e ( __delay (1 -> * -> -> 5 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
+[; ;RTC.c: 34:     Month = I2C_Read(0);
+[e = _Month -> ( _I2C_Read (1 -> -> 0 `i `uc `i ]
 "35
-[; ;LCD.c: 35:   LCD_CMD(0x03);
-[e ( _LCD_CMD (1 -> -> 3 `i `uc ]
+[; ;RTC.c: 35:     Year = I2C_Read(1);
+[e = _Year -> ( _I2C_Read (1 -> -> 1 `i `uc `i ]
 "36
-[; ;LCD.c: 36:   _delay((unsigned long)((5)*(8000000/4000.0)));
-[e ( __delay (1 -> * -> -> 5 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
-"37
-[; ;LCD.c: 37:   LCD_CMD(0x02);
-[e ( _LCD_CMD (1 -> -> 2 `i `uc ]
-"38
-[; ;LCD.c: 38:   _delay((unsigned long)((5)*(8000000/4000.0)));
-[e ( __delay (1 -> * -> -> 5 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
-"39
-[; ;LCD.c: 39:   LCD_CMD(0x20 | (2 << 2));
-[e ( _LCD_CMD (1 -> | -> 32 `i << -> 2 `i -> 2 `i `uc ]
-"40
-[; ;LCD.c: 40:   _delay((unsigned long)((50)*(8000000/4000.0)));
-[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
-"41
-[; ;LCD.c: 41:   LCD_CMD(0x0C);
-[e ( _LCD_CMD (1 -> -> 12 `i `uc ]
-"42
-[; ;LCD.c: 42:   _delay((unsigned long)((50)*(8000000/4000.0)));
-[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
-"43
-[; ;LCD.c: 43:   LCD_CMD(0x01);
-[e ( _LCD_CMD (1 -> -> 1 `i `uc ]
-"44
-[; ;LCD.c: 44:   _delay((unsigned long)((50)*(8000000/4000.0)));
-[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
-"45
-[; ;LCD.c: 45:   LCD_CMD(0x04 | 0x02);
-[e ( _LCD_CMD (1 -> | -> 4 `i -> 2 `i `uc ]
-"46
-[; ;LCD.c: 46:   _delay((unsigned long)((50)*(8000000/4000.0)));
-[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
-"47
-[; ;LCD.c: 47: }
-[e :UE 142 ]
-}
-"49
-[; ;LCD.c: 49: void IO_Expander_Write(unsigned char Data)
-[v _IO_Expander_Write `(v ~T0 @X0 1 ef1`uc ]
-"50
-[; ;LCD.c: 50: {
-{
-[e :U _IO_Expander_Write ]
-"49
-[; ;LCD.c: 49: void IO_Expander_Write(unsigned char Data)
-[v _Data `uc ~T0 @X0 1 r1 ]
-"50
-[; ;LCD.c: 50: {
-[f ]
-"51
-[; ;LCD.c: 51:   I2C_Start(0x4E);
-[e ( _I2C_Start (1 -> -> 78 `i `uc ]
-"52
-[; ;LCD.c: 52:   I2C_Write(Data | BackLight_State);
-[e ( _I2C_Write (1 -> | -> _Data `i -> _BackLight_State `i `uc ]
-"53
-[; ;LCD.c: 53:   I2C_Stop();
+[; ;RTC.c: 36:     I2C_Stop();
 [e ( _I2C_Stop ..  ]
+"37
+[; ;RTC.c: 37: }
+[e :UE 140 ]
+}
+"39
+[; ;RTC.c: 39: void RTC_Clock_Write(char sec, char min, char hour, char AM_PM)
+[v _RTC_Clock_Write `(v ~T0 @X0 1 ef4`uc`uc`uc`uc ]
+"40
+[; ;RTC.c: 40: {
+{
+[e :U _RTC_Clock_Write ]
+"39
+[; ;RTC.c: 39: void RTC_Clock_Write(char sec, char min, char hour, char AM_PM)
+[v _sec `uc ~T0 @X0 1 r1 ]
+[v _min `uc ~T0 @X0 1 r2 ]
+[v _hour `uc ~T0 @X0 1 r3 ]
+[v _AM_PM `uc ~T0 @X0 1 r4 ]
+"40
+[; ;RTC.c: 40: {
+[f ]
+"41
+[; ;RTC.c: 41:     hour = (hour | AM_PM);
+[e = _hour -> | -> _hour `i -> _AM_PM `i `uc ]
+"42
+[; ;RTC.c: 42:  I2C_Start(0xD0);
+[e ( _I2C_Start (1 -> -> 208 `i `uc ]
+"43
+[; ;RTC.c: 43:  I2C_Write(0);
+[e ( _I2C_Write (1 -> -> 0 `i `uc ]
+"44
+[; ;RTC.c: 44:  I2C_Write(sec);
+[e ( _I2C_Write (1 -> _sec `uc ]
+"45
+[; ;RTC.c: 45:  I2C_Write(min);
+[e ( _I2C_Write (1 -> _min `uc ]
+"46
+[; ;RTC.c: 46:  I2C_Write(hour);
+[e ( _I2C_Write (1 -> _hour `uc ]
+"47
+[; ;RTC.c: 47:  I2C_Stop();
+[e ( _I2C_Stop ..  ]
+"48
+[; ;RTC.c: 48: }
+[e :UE 141 ]
+}
+"50
+[; ;RTC.c: 50: void RTC_Calendar_Write(char day, char date, char month, char year)
+[v _RTC_Calendar_Write `(v ~T0 @X0 1 ef4`uc`uc`uc`uc ]
+"51
+[; ;RTC.c: 51: {
+{
+[e :U _RTC_Calendar_Write ]
+"50
+[; ;RTC.c: 50: void RTC_Calendar_Write(char day, char date, char month, char year)
+[v _day `uc ~T0 @X0 1 r1 ]
+[v _date `uc ~T0 @X0 1 r2 ]
+[v _month `uc ~T0 @X0 1 r3 ]
+[v _year `uc ~T0 @X0 1 r4 ]
+"51
+[; ;RTC.c: 51: {
+[f ]
+"52
+[; ;RTC.c: 52:  I2C_Start(0xD0);
+[e ( _I2C_Start (1 -> -> 208 `i `uc ]
+"53
+[; ;RTC.c: 53:  I2C_Write(3);
+[e ( _I2C_Write (1 -> -> 3 `i `uc ]
 "54
-[; ;LCD.c: 54: }
-[e :UE 143 ]
-}
+[; ;RTC.c: 54:  I2C_Write(day);
+[e ( _I2C_Write (1 -> _day `uc ]
+"55
+[; ;RTC.c: 55:  I2C_Write(date);
+[e ( _I2C_Write (1 -> _date `uc ]
 "56
-[; ;LCD.c: 56: void LCD_Write_4Bit(unsigned char Nibble)
-[v _LCD_Write_4Bit `(v ~T0 @X0 1 ef1`uc ]
+[; ;RTC.c: 56:  I2C_Write(month);
+[e ( _I2C_Write (1 -> _month `uc ]
 "57
-[; ;LCD.c: 57: {
-{
-[e :U _LCD_Write_4Bit ]
-"56
-[; ;LCD.c: 56: void LCD_Write_4Bit(unsigned char Nibble)
-[v _Nibble `uc ~T0 @X0 1 r1 ]
-"57
-[; ;LCD.c: 57: {
-[f ]
+[; ;RTC.c: 57:  I2C_Write(year);
+[e ( _I2C_Write (1 -> _year `uc ]
+"58
+[; ;RTC.c: 58:  I2C_Stop();
+[e ( _I2C_Stop ..  ]
 "59
-[; ;LCD.c: 59:   Nibble |= RS;
-[e =| _Nibble -> _RS `uc ]
-"60
-[; ;LCD.c: 60:   IO_Expander_Write(Nibble | 0x04);
-[e ( _IO_Expander_Write (1 -> | -> _Nibble `i -> 4 `i `uc ]
-"61
-[; ;LCD.c: 61:   IO_Expander_Write(Nibble & 0xFB);
-[e ( _IO_Expander_Write (1 -> & -> _Nibble `i -> 251 `i `uc ]
-"62
-[; ;LCD.c: 62:   _delay((unsigned long)((50)*(8000000/4000000.0)));
-[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 8000000 `l `d .4000000.0 `ul ]
-"63
-[; ;LCD.c: 63: }
-[e :UE 144 ]
-}
-"65
-[; ;LCD.c: 65: void LCD_CMD(unsigned char CMD)
-[v _LCD_CMD `(v ~T0 @X0 1 ef1`uc ]
-"66
-[; ;LCD.c: 66: {
-{
-[e :U _LCD_CMD ]
-"65
-[; ;LCD.c: 65: void LCD_CMD(unsigned char CMD)
-[v _CMD `uc ~T0 @X0 1 r1 ]
-"66
-[; ;LCD.c: 66: {
-[f ]
-"67
-[; ;LCD.c: 67:   RS = 0;
-[e = _RS -> -> 0 `i `uc ]
-"68
-[; ;LCD.c: 68:   LCD_Write_4Bit(CMD & 0xF0);
-[e ( _LCD_Write_4Bit (1 -> & -> _CMD `i -> 240 `i `uc ]
-"69
-[; ;LCD.c: 69:   LCD_Write_4Bit((CMD << 4) & 0xF0);
-[e ( _LCD_Write_4Bit (1 -> & << -> _CMD `i -> 4 `i -> 240 `i `uc ]
-"70
-[; ;LCD.c: 70: }
-[e :UE 145 ]
-}
-"72
-[; ;LCD.c: 72: void LCD_Write_Char(const char Data)
-[v _LCD_Write_Char `(v ~T0 @X0 1 ef1`Cuc ]
-"73
-[; ;LCD.c: 73: {
-{
-[e :U _LCD_Write_Char ]
-"72
-[; ;LCD.c: 72: void LCD_Write_Char(const char Data)
-[v _Data `Cuc ~T0 @X0 1 r1 ]
-"73
-[; ;LCD.c: 73: {
-[f ]
-"74
-[; ;LCD.c: 74:   RS = 1;
-[e = _RS -> -> 1 `i `uc ]
-"75
-[; ;LCD.c: 75:   LCD_Write_4Bit(Data & 0xF0);
-[e ( _LCD_Write_4Bit (1 -> & -> _Data `i -> 240 `i `uc ]
-"76
-[; ;LCD.c: 76:   LCD_Write_4Bit((Data << 4) & 0xF0);
-[e ( _LCD_Write_4Bit (1 -> & << -> _Data `i -> 4 `i -> 240 `i `uc ]
-"77
-[; ;LCD.c: 77: }
-[e :UE 146 ]
-}
-"79
-[; ;LCD.c: 79: void LCD_Write_String(const char* Str)
-[v _LCD_Write_String `(v ~T0 @X0 1 ef1`*Cuc ]
-"80
-[; ;LCD.c: 80: {
-{
-[e :U _LCD_Write_String ]
-"79
-[; ;LCD.c: 79: void LCD_Write_String(const char* Str)
-[v _Str `*Cuc ~T0 @X0 1 r1 ]
-"80
-[; ;LCD.c: 80: {
-[f ]
-"81
-[; ;LCD.c: 81:   for(int i=0; Str[i]!='\0'; i++)
-{
-[v _i `i ~T0 @X0 1 a ]
-[e = _i -> 0 `i ]
-[e $U 151  ]
-[e :U 148 ]
-"82
-[; ;LCD.c: 82:     LCD_Write_Char(Str[i]);
-[e ( _LCD_Write_Char (1 *U + _Str * -> _i `x -> -> # *U _Str `i `x ]
-[e ++ _i -> 1 `i ]
-[e :U 151 ]
-[e $ != -> *U + _Str * -> _i `x -> -> # *U _Str `i `x `ui -> 0 `ui 148  ]
-[e :U 149 ]
-}
-"83
-[; ;LCD.c: 83: }
-[e :UE 147 ]
-}
-"85
-[; ;LCD.c: 85: void LCD_Set_Cursor(unsigned char ROW, unsigned char COL)
-[v _LCD_Set_Cursor `(v ~T0 @X0 1 ef2`uc`uc ]
-"86
-[; ;LCD.c: 86: {
-{
-[e :U _LCD_Set_Cursor ]
-"85
-[; ;LCD.c: 85: void LCD_Set_Cursor(unsigned char ROW, unsigned char COL)
-[v _ROW `uc ~T0 @X0 1 r1 ]
-[v _COL `uc ~T0 @X0 1 r2 ]
-"86
-[; ;LCD.c: 86: {
-[f ]
-"87
-[; ;LCD.c: 87:   switch(ROW)
-[e $U 154  ]
-"88
-[; ;LCD.c: 88:   {
-{
-"89
-[; ;LCD.c: 89:     case 2:
-[e :U 155 ]
-"90
-[; ;LCD.c: 90:       LCD_CMD(0xC0 + COL-1);
-[e ( _LCD_CMD (1 -> - + -> 192 `i -> _COL `i -> 1 `i `uc ]
-"91
-[; ;LCD.c: 91:       break;
-[e $U 153  ]
-"92
-[; ;LCD.c: 92:     case 3:
-[e :U 156 ]
-"93
-[; ;LCD.c: 93:       LCD_CMD(0x94 + COL-1);
-[e ( _LCD_CMD (1 -> - + -> 148 `i -> _COL `i -> 1 `i `uc ]
-"94
-[; ;LCD.c: 94:       break;
-[e $U 153  ]
-"95
-[; ;LCD.c: 95:     case 4:
-[e :U 157 ]
-"96
-[; ;LCD.c: 96:       LCD_CMD(0xD4 + COL-1);
-[e ( _LCD_CMD (1 -> - + -> 212 `i -> _COL `i -> 1 `i `uc ]
-"97
-[; ;LCD.c: 97:       break;
-[e $U 153  ]
-"99
-[; ;LCD.c: 99:     default:
-[e :U 158 ]
-"100
-[; ;LCD.c: 100:       LCD_CMD(0x80 + COL-1);
-[e ( _LCD_CMD (1 -> - + -> 128 `i -> _COL `i -> 1 `i `uc ]
-"101
-[; ;LCD.c: 101:   }
-}
-[e $U 153  ]
-[e :U 154 ]
-[e [\ -> _ROW `i , $ -> 2 `i 155
- , $ -> 3 `i 156
- , $ -> 4 `i 157
- 158 ]
-[e :U 153 ]
-"102
-[; ;LCD.c: 102: }
-[e :UE 152 ]
-}
-"104
-[; ;LCD.c: 104: void Backlight()
-[v _Backlight `(v ~T0 @X0 1 ef ]
-"105
-[; ;LCD.c: 105: {
-{
-[e :U _Backlight ]
-[f ]
-"106
-[; ;LCD.c: 106:   BackLight_State = 0x08;
-[e = _BackLight_State -> -> 8 `i `uc ]
-"107
-[; ;LCD.c: 107:   IO_Expander_Write(0);
-[e ( _IO_Expander_Write (1 -> -> 0 `i `uc ]
-"108
-[; ;LCD.c: 108: }
-[e :UE 159 ]
-}
-"110
-[; ;LCD.c: 110: void noBacklight()
-[v _noBacklight `(v ~T0 @X0 1 ef ]
-"111
-[; ;LCD.c: 111: {
-{
-[e :U _noBacklight ]
-[f ]
-"112
-[; ;LCD.c: 112:   BackLight_State = 0x00;
-[e = _BackLight_State -> -> 0 `i `uc ]
-"113
-[; ;LCD.c: 113:   IO_Expander_Write(0);
-[e ( _IO_Expander_Write (1 -> -> 0 `i `uc ]
-"114
-[; ;LCD.c: 114: }
-[e :UE 160 ]
-}
-"116
-[; ;LCD.c: 116: void LCD_SL()
-[v _LCD_SL `(v ~T0 @X0 1 ef ]
-"117
-[; ;LCD.c: 117: {
-{
-[e :U _LCD_SL ]
-[f ]
-"118
-[; ;LCD.c: 118:   LCD_CMD(0x18);
-[e ( _LCD_CMD (1 -> -> 24 `i `uc ]
-"119
-[; ;LCD.c: 119:   _delay((unsigned long)((40)*(8000000/4000000.0)));
-[e ( __delay (1 -> * -> -> 40 `i `d / -> -> 8000000 `l `d .4000000.0 `ul ]
-"120
-[; ;LCD.c: 120: }
-[e :UE 161 ]
-}
-"122
-[; ;LCD.c: 122: void LCD_SR()
-[v _LCD_SR `(v ~T0 @X0 1 ef ]
-"123
-[; ;LCD.c: 123: {
-{
-[e :U _LCD_SR ]
-[f ]
-"124
-[; ;LCD.c: 124:   LCD_CMD(0x1C);
-[e ( _LCD_CMD (1 -> -> 28 `i `uc ]
-"125
-[; ;LCD.c: 125:   _delay((unsigned long)((40)*(8000000/4000000.0)));
-[e ( __delay (1 -> * -> -> 40 `i `d / -> -> 8000000 `l `d .4000000.0 `ul ]
-"126
-[; ;LCD.c: 126: }
-[e :UE 162 ]
-}
-"128
-[; ;LCD.c: 128: void LCD_Clear()
-[v _LCD_Clear `(v ~T0 @X0 1 ef ]
-"129
-[; ;LCD.c: 129: {
-{
-[e :U _LCD_Clear ]
-[f ]
-"130
-[; ;LCD.c: 130:   LCD_CMD(0x01);
-[e ( _LCD_CMD (1 -> -> 1 `i `uc ]
-"131
-[; ;LCD.c: 131:   _delay((unsigned long)((40)*(8000000/4000000.0)));
-[e ( __delay (1 -> * -> -> 40 `i `d / -> -> 8000000 `l `d .4000000.0 `ul ]
-"132
-[; ;LCD.c: 132: }
-[e :UE 163 ]
+[; ;RTC.c: 59: }
+[e :UE 142 ]
 }

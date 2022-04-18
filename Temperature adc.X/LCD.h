@@ -24,7 +24,7 @@
 
 extern unsigned char RS, i2c_add, BackLight_State;
 
-void LCD_Init();
+void LCD_Init(void);
 void IO_Expander_Write(unsigned char Data);
 void LCD_Write_4Bit(unsigned char Nibble);
 void LCD_CMD(unsigned char CMD);
@@ -32,10 +32,10 @@ void LCD_Set_Cursor(unsigned char ROW, unsigned char COL);
 void LCD_Write_Char(const char);
 void LCD_Write_String(const char*);
 void LCD_String_xy(char, char , const char *);
-void Backlight();
-void noBacklight();
-void LCD_SR();
-void LCD_SL();
-void LCD_Clear();
+void Backlight(void);
+void noBacklight(void);
+void LCD_SR(void);
+void LCD_SL(void);
+void LCD_Clear(void);
 
 #endif

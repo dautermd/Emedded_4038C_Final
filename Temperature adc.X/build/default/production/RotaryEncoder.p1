@@ -1,26 +1,68 @@
 Version 4.0 HI-TECH Software Intermediate Code
-"30 ./LCD.h
-[; ;./LCD.h: 30: void LCD_CMD(unsigned char CMD);
-[v _LCD_CMD `(v ~T0 @X0 0 ef1`uc ]
-"33
-[; ;./LCD.h: 33: void LCD_Write_String(const char*);
-[v _LCD_Write_String `(v ~T0 @X0 0 ef1`*Cuc ]
-"28
-[; ;./LCD.h: 28: void IO_Expander_Write(unsigned char Data);
-[v _IO_Expander_Write `(v ~T0 @X0 0 ef1`uc ]
-[v F36 `(v ~T0 @X0 1 tf1`ul ]
-"12 C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC16Fxxx_DFP/1.3.42/xc8\pic\include\builtins.h
-[v __delay `JF36 ~T0 @X0 0 e ]
-[p i __delay ]
-"20 ./I2C_Master.h
-[; ;./I2C_Master.h: 20: char I2C_Start(char);
-[v _I2C_Start `(uc ~T0 @X0 0 ef1`uc ]
-"25
-[; ;./I2C_Master.h: 25: char I2C_Write(unsigned char);
-[v _I2C_Write `(uc ~T0 @X0 0 ef1`uc ]
-"24
-[; ;./I2C_Master.h: 24: char I2C_Stop(void);
-[v _I2C_Stop `(uc ~T0 @X0 0 ef ]
+"694 C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC16Fxxx_DFP/1.3.42/xc8\pic\include\proc\pic16f886.h
+[; ;C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC16Fxxx_DFP/1.3.42/xc8\pic\include\proc\pic16f886.h: 694: extern volatile unsigned char T2CON __attribute__((address(0x012)));
+[v _T2CON `Vuc ~T0 @X0 0 e@18 ]
+"1884
+[; ;C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC16Fxxx_DFP/1.3.42/xc8\pic\include\proc\pic16f886.h: 1884: extern volatile unsigned char PR2 __attribute__((address(0x092)));
+[v _PR2 `Vuc ~T0 @X0 0 e@146 ]
+"1406
+[; ;C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC16Fxxx_DFP/1.3.42/xc8\pic\include\proc\pic16f886.h: 1406:     struct {
+[s S53 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S53 . TRISB0 TRISB1 TRISB2 TRISB3 TRISB4 TRISB5 TRISB6 TRISB7 ]
+"1405
+[; ;C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC16Fxxx_DFP/1.3.42/xc8\pic\include\proc\pic16f886.h: 1405: typedef union {
+[u S52 `S53 1 ]
+[n S52 . . ]
+"1417
+[; ;C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC16Fxxx_DFP/1.3.42/xc8\pic\include\proc\pic16f886.h: 1417: extern volatile TRISBbits_t TRISBbits __attribute__((address(0x086)));
+[v _TRISBbits `VS52 ~T0 @X0 0 e@134 ]
+"2775
+[; ;C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC16Fxxx_DFP/1.3.42/xc8\pic\include\proc\pic16f886.h: 2775:     struct {
+[s S110 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S110 . STRA STRB STRC STRD STRSYNC ]
+"2774
+[; ;C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC16Fxxx_DFP/1.3.42/xc8\pic\include\proc\pic16f886.h: 2774: typedef union {
+[u S109 `S110 1 ]
+[n S109 . . ]
+"2783
+[; ;C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC16Fxxx_DFP/1.3.42/xc8\pic\include\proc\pic16f886.h: 2783: extern volatile PSTRCONbits_t PSTRCONbits __attribute__((address(0x09D)));
+[v _PSTRCONbits `VS109 ~T0 @X0 0 e@157 ]
+"869
+[; ;C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC16Fxxx_DFP/1.3.42/xc8\pic\include\proc\pic16f886.h: 869:     struct {
+[s S31 :4 `uc 1 :2 `uc 1 :2 `uc 1 ]
+[n S31 . CCP1M DC1B P1M ]
+"874
+[; ;C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC16Fxxx_DFP/1.3.42/xc8\pic\include\proc\pic16f886.h: 874:     struct {
+[s S32 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S32 . CCP1M0 CCP1M1 CCP1M2 CCP1M3 DC1B0 DC1B1 P1M0 P1M1 ]
+"884
+[; ;C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC16Fxxx_DFP/1.3.42/xc8\pic\include\proc\pic16f886.h: 884:     struct {
+[s S33 :4 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S33 . . CCP1Y CCP1X ]
+"868
+[; ;C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC16Fxxx_DFP/1.3.42/xc8\pic\include\proc\pic16f886.h: 868: typedef union {
+[u S30 `S31 1 `S32 1 `S33 1 ]
+[n S30 . . . . ]
+"890
+[; ;C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC16Fxxx_DFP/1.3.42/xc8\pic\include\proc\pic16f886.h: 890: extern volatile CCP1CONbits_t CCP1CONbits __attribute__((address(0x017)));
+[v _CCP1CONbits `VS30 ~T0 @X0 0 e@23 ]
+"235
+[; ;C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC16Fxxx_DFP/1.3.42/xc8\pic\include\proc\pic16f886.h: 235:     struct {
+[s S8 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S8 . RB0 RB1 RB2 RB3 RB4 RB5 RB6 RB7 ]
+"234
+[; ;C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC16Fxxx_DFP/1.3.42/xc8\pic\include\proc\pic16f886.h: 234: typedef union {
+[u S7 `S8 1 ]
+[n S7 . . ]
+"246
+[; ;C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC16Fxxx_DFP/1.3.42/xc8\pic\include\proc\pic16f886.h: 246: extern volatile PORTBbits_t PORTBbits __attribute__((address(0x006)));
+[v _PORTBbits `VS7 ~T0 @X0 0 e@6 ]
+"849
+[; ;C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC16Fxxx_DFP/1.3.42/xc8\pic\include\proc\pic16f886.h: 849: extern volatile unsigned char CCPR1L __attribute__((address(0x015)));
+[v _CCPR1L `Vuc ~T0 @X0 0 e@21 ]
+"21 ./LED.h
+[; ;./LED.h: 21: void LED_Color(unsigned char brt);
+[v _LED_Color `(v ~T0 @X0 0 ef1`uc ]
 "55 C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC16Fxxx_DFP/1.3.42/xc8\pic\include\proc\pic16f886.h
 [; ;C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC16Fxxx_DFP/1.3.42/xc8\pic\include\proc\pic16f886.h: 55: __asm("INDF equ 00h");
 [; <" INDF equ 00h ;# ">
@@ -273,430 +315,237 @@ Version 4.0 HI-TECH Software Intermediate Code
 [p x BOR4V  =  BOR40V    ]
 "34
 [p x WRT  =  OFF         ]
-"6 LCD.c
-[; ;LCD.c: 6: unsigned char RS, BackLight_State = 0x08;
-[v _RS `uc ~T0 @X0 1 e ]
-[v _BackLight_State `uc ~T0 @X0 1 e ]
-[i _BackLight_State
--> -> 8 `i `uc
+"4 RotaryEncoder.c
+[; ;RotaryEncoder.c: 4: int lastStateCLK;
+[v _lastStateCLK `i ~T0 @X0 1 e ]
+"6
+[; ;RotaryEncoder.c: 6: int btnState;
+[v _btnState `i ~T0 @X0 1 e ]
+"8
+[; ;RotaryEncoder.c: 8: unsigned char brightness = 20;
+[v _brightness `uc ~T0 @X0 1 e ]
+[i _brightness
+-> -> 20 `i `uc
 ]
-"8
-[; ;LCD.c: 8: void LCD_String_xy(char row,char pos,const char *msg)
-[v _LCD_String_xy `(v ~T0 @X0 1 ef3`uc`uc`*Cuc ]
 "9
-[; ;LCD.c: 9: {
-{
-[e :U _LCD_String_xy ]
-"8
-[; ;LCD.c: 8: void LCD_String_xy(char row,char pos,const char *msg)
-[v _row `uc ~T0 @X0 1 r1 ]
-[v _pos `uc ~T0 @X0 1 r2 ]
-[v _msg `*Cuc ~T0 @X0 1 r3 ]
-"9
-[; ;LCD.c: 9: {
-[f ]
-"10
-[; ;LCD.c: 10:     char location=0;
-[v _location `uc ~T0 @X0 1 a ]
-[e = _location -> -> 0 `i `uc ]
-"11
-[; ;LCD.c: 11:     if(row<=1)
-[e $ ! <= -> _row `i -> 1 `i 140  ]
+[; ;RotaryEncoder.c: 9: int colorIncrement = 2;
+[v _colorIncrement `i ~T0 @X0 1 e ]
+[i _colorIncrement
+-> 2 `i
+]
 "12
-[; ;LCD.c: 12:     {
+[; ;RotaryEncoder.c: 12: void RotaryEncoder_Init(){
+[v _RotaryEncoder_Init `(v ~T0 @X0 1 ef ]
 {
-"13
-[; ;LCD.c: 13:         location = (0x80) | ((pos) & 0x0f);
-[e = _location -> | -> 128 `i & -> _pos `i -> 15 `i `uc ]
+[e :U _RotaryEncoder_Init ]
+[f ]
 "14
-[; ;LCD.c: 14:         LCD_CMD(location);
-[e ( _LCD_CMD (1 -> _location `uc ]
+[; ;RotaryEncoder.c: 14:     T2CON = 0x04;
+[e = _T2CON -> -> 4 `i `uc ]
 "15
-[; ;LCD.c: 15:     }
-}
-[e $U 141  ]
-"16
-[; ;LCD.c: 16:     else
-[e :U 140 ]
+[; ;RotaryEncoder.c: 15:     PR2 = 101;
+[e = _PR2 -> -> 101 `i `uc ]
 "17
-[; ;LCD.c: 17:     {
-{
+[; ;RotaryEncoder.c: 17:     TRISBbits.TRISB0 = 1;
+[e = . . _TRISBbits 0 0 -> -> 1 `i `uc ]
 "18
-[; ;LCD.c: 18:         location = (0xC0) | ((pos) & 0x0f);
-[e = _location -> | -> 192 `i & -> _pos `i -> 15 `i `uc ]
+[; ;RotaryEncoder.c: 18:     TRISBbits.TRISB3 = 1;
+[e = . . _TRISBbits 0 3 -> -> 1 `i `uc ]
 "19
-[; ;LCD.c: 19:         LCD_CMD(location);
-[e ( _LCD_CMD (1 -> _location `uc ]
-"20
-[; ;LCD.c: 20:     }
-}
-[e :U 141 ]
+[; ;RotaryEncoder.c: 19:     TRISBbits.TRISB7 = 1;
+[e = . . _TRISBbits 0 7 -> -> 1 `i `uc ]
+"21
+[; ;RotaryEncoder.c: 21:     PSTRCONbits.STRB = 1;
+[e = . . _PSTRCONbits 0 1 -> -> 1 `i `uc ]
+"22
+[; ;RotaryEncoder.c: 22:     PSTRCONbits.STRC = 1;
+[e = . . _PSTRCONbits 0 2 -> -> 1 `i `uc ]
 "23
-[; ;LCD.c: 23:     LCD_Write_String(msg);
-[e ( _LCD_Write_String (1 _msg ]
-"25
-[; ;LCD.c: 25: }
+[; ;RotaryEncoder.c: 23:     PSTRCONbits.STRD = 1;
+[e = . . _PSTRCONbits 0 3 -> -> 1 `i `uc ]
+"26
+[; ;RotaryEncoder.c: 26:     CCP1CONbits.P1M = 0x00;
+[e = . . _CCP1CONbits 0 2 -> -> 0 `i `uc ]
+"27
+[; ;RotaryEncoder.c: 27:     CCP1CONbits.CCP1M = 0b1100;
+[e = . . _CCP1CONbits 0 0 -> -> 12 `i `uc ]
+"29
+[; ;RotaryEncoder.c: 29: }
 [e :UE 139 ]
 }
-"27
-[; ;LCD.c: 27: void LCD_Init()
-[v _LCD_Init `(v ~T0 @X0 1 ef ]
-"28
-[; ;LCD.c: 28: {
-{
-[e :U _LCD_Init ]
-[f ]
-"29
-[; ;LCD.c: 29:   IO_Expander_Write(0x00);
-[e ( _IO_Expander_Write (1 -> -> 0 `i `uc ]
-"30
-[; ;LCD.c: 30:   _delay((unsigned long)((30)*(8000000/4000.0)));
-[e ( __delay (1 -> * -> -> 30 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
 "31
-[; ;LCD.c: 31:   LCD_CMD(0x03);
-[e ( _LCD_CMD (1 -> -> 3 `i `uc ]
-"32
-[; ;LCD.c: 32:   _delay((unsigned long)((5)*(8000000/4000.0)));
-[e ( __delay (1 -> * -> -> 5 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
+[; ;RotaryEncoder.c: 31: void ChangeBrightness(){
+[v _ChangeBrightness `(v ~T0 @X0 1 ef ]
+{
+[e :U _ChangeBrightness ]
+[f ]
 "33
-[; ;LCD.c: 33:   LCD_CMD(0x03);
-[e ( _LCD_CMD (1 -> -> 3 `i `uc ]
+[; ;RotaryEncoder.c: 33:     lastStateCLK = PORTBbits.RB7;
+[e = _lastStateCLK -> . . _PORTBbits 0 7 `i ]
 "34
-[; ;LCD.c: 34:   _delay((unsigned long)((5)*(8000000/4000.0)));
-[e ( __delay (1 -> * -> -> 5 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
-"35
-[; ;LCD.c: 35:   LCD_CMD(0x03);
-[e ( _LCD_CMD (1 -> -> 3 `i `uc ]
+[; ;RotaryEncoder.c: 34:     CCPR1L = brightness;
+[e = _CCPR1L _brightness ]
 "36
-[; ;LCD.c: 36:   _delay((unsigned long)((5)*(8000000/4000.0)));
-[e ( __delay (1 -> * -> -> 5 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
-"37
-[; ;LCD.c: 37:   LCD_CMD(0x02);
-[e ( _LCD_CMD (1 -> -> 2 `i `uc ]
+[; ;RotaryEncoder.c: 36:     if(PORTBbits.RB7 != lastStateCLK && PORTBbits.RB7 == 1){
+[e $ ! && != -> . . _PORTBbits 0 7 `i _lastStateCLK == -> . . _PORTBbits 0 7 `i -> 1 `i 141  ]
+{
 "38
-[; ;LCD.c: 38:   _delay((unsigned long)((5)*(8000000/4000.0)));
-[e ( __delay (1 -> * -> -> 5 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
+[; ;RotaryEncoder.c: 38:         if(PORTBbits.RB0 != PORTBbits.RB7 && brightness > 0){
+[e $ ! && != -> . . _PORTBbits 0 0 `i -> . . _PORTBbits 0 7 `i > -> _brightness `i -> 0 `i 142  ]
+{
 "39
-[; ;LCD.c: 39:   LCD_CMD(0x20 | (2 << 2));
-[e ( _LCD_CMD (1 -> | -> 32 `i << -> 2 `i -> 2 `i `uc ]
+[; ;RotaryEncoder.c: 39:             brightness = brightness - 10;
+[e = _brightness -> - -> _brightness `i -> 10 `i `uc ]
 "40
-[; ;LCD.c: 40:   _delay((unsigned long)((50)*(8000000/4000.0)));
-[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
+[; ;RotaryEncoder.c: 40:             CCPR1L = brightness;
+[e = _CCPR1L _brightness ]
 "41
-[; ;LCD.c: 41:   LCD_CMD(0x0C);
-[e ( _LCD_CMD (1 -> -> 12 `i `uc ]
-"42
-[; ;LCD.c: 42:   _delay((unsigned long)((50)*(8000000/4000.0)));
-[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
+[; ;RotaryEncoder.c: 41:         }
+}
+[e $U 143  ]
 "43
-[; ;LCD.c: 43:   LCD_CMD(0x01);
-[e ( _LCD_CMD (1 -> -> 1 `i `uc ]
+[; ;RotaryEncoder.c: 43:         else if(PORTBbits.RB0 == PORTBbits.RB7 && brightness < 100){
+[e :U 142 ]
+[e $ ! && == -> . . _PORTBbits 0 0 `i -> . . _PORTBbits 0 7 `i < -> _brightness `i -> 100 `i 144  ]
+{
 "44
-[; ;LCD.c: 44:   _delay((unsigned long)((50)*(8000000/4000.0)));
-[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
+[; ;RotaryEncoder.c: 44:            brightness = brightness + 10;
+[e = _brightness -> + -> _brightness `i -> 10 `i `uc ]
 "45
-[; ;LCD.c: 45:   LCD_CMD(0x04 | 0x02);
-[e ( _LCD_CMD (1 -> | -> 4 `i -> 2 `i `uc ]
+[; ;RotaryEncoder.c: 45:            CCPR1L = brightness;
+[e = _CCPR1L _brightness ]
 "46
-[; ;LCD.c: 46:   _delay((unsigned long)((50)*(8000000/4000.0)));
-[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
+[; ;RotaryEncoder.c: 46:         }
+}
+[e :U 144 ]
+[e :U 143 ]
 "47
-[; ;LCD.c: 47: }
-[e :UE 142 ]
+[; ;RotaryEncoder.c: 47:     }
 }
+[e :U 141 ]
 "49
-[; ;LCD.c: 49: void IO_Expander_Write(unsigned char Data)
-[v _IO_Expander_Write `(v ~T0 @X0 1 ef1`uc ]
-"50
-[; ;LCD.c: 50: {
-{
-[e :U _IO_Expander_Write ]
-"49
-[; ;LCD.c: 49: void IO_Expander_Write(unsigned char Data)
-[v _Data `uc ~T0 @X0 1 r1 ]
-"50
-[; ;LCD.c: 50: {
-[f ]
+[; ;RotaryEncoder.c: 49:     lastStateCLK = PORTBbits.RB7;
+[e = _lastStateCLK -> . . _PORTBbits 0 7 `i ]
 "51
-[; ;LCD.c: 51:   I2C_Start(0x4E);
-[e ( _I2C_Start (1 -> -> 78 `i `uc ]
-"52
-[; ;LCD.c: 52:   I2C_Write(Data | BackLight_State);
-[e ( _I2C_Write (1 -> | -> _Data `i -> _BackLight_State `i `uc ]
+[; ;RotaryEncoder.c: 51: }
+[e :UE 140 ]
+}
 "53
-[; ;LCD.c: 53:   I2C_Stop();
-[e ( _I2C_Stop ..  ]
-"54
-[; ;LCD.c: 54: }
-[e :UE 143 ]
-}
-"56
-[; ;LCD.c: 56: void LCD_Write_4Bit(unsigned char Nibble)
-[v _LCD_Write_4Bit `(v ~T0 @X0 1 ef1`uc ]
-"57
-[; ;LCD.c: 57: {
+[; ;RotaryEncoder.c: 53: void ChangeColor(){
+[v _ChangeColor `(v ~T0 @X0 1 ef ]
 {
-[e :U _LCD_Write_4Bit ]
-"56
-[; ;LCD.c: 56: void LCD_Write_4Bit(unsigned char Nibble)
-[v _Nibble `uc ~T0 @X0 1 r1 ]
-"57
-[; ;LCD.c: 57: {
+[e :U _ChangeColor ]
 [f ]
+"55
+[; ;RotaryEncoder.c: 55:     LED_Color(1);
+[e ( _LED_Color (1 -> -> 1 `i `uc ]
+"57
+[; ;RotaryEncoder.c: 57:     return;
+[e $UE 145  ]
 "59
-[; ;LCD.c: 59:   Nibble |= RS;
-[e =| _Nibble -> _RS `uc ]
-"60
-[; ;LCD.c: 60:   IO_Expander_Write(Nibble | 0x04);
-[e ( _IO_Expander_Write (1 -> | -> _Nibble `i -> 4 `i `uc ]
+[; ;RotaryEncoder.c: 59:     btnState = PORTBbits.RB3;
+[e = _btnState -> . . _PORTBbits 0 3 `i ]
 "61
-[; ;LCD.c: 61:   IO_Expander_Write(Nibble & 0xFB);
-[e ( _IO_Expander_Write (1 -> & -> _Nibble `i -> 251 `i `uc ]
+[; ;RotaryEncoder.c: 61:     if (PORTBbits.RB3 == 1){
+[e $ ! == -> . . _PORTBbits 0 3 `i -> 1 `i 146  ]
+{
 "62
-[; ;LCD.c: 62:   _delay((unsigned long)((50)*(8000000/4000000.0)));
-[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 8000000 `l `d .4000000.0 `ul ]
-"63
-[; ;LCD.c: 63: }
-[e :UE 144 ]
-}
-"65
-[; ;LCD.c: 65: void LCD_CMD(unsigned char CMD)
-[v _LCD_CMD `(v ~T0 @X0 1 ef1`uc ]
-"66
-[; ;LCD.c: 66: {
-{
-[e :U _LCD_CMD ]
-"65
-[; ;LCD.c: 65: void LCD_CMD(unsigned char CMD)
-[v _CMD `uc ~T0 @X0 1 r1 ]
-"66
-[; ;LCD.c: 66: {
-[f ]
-"67
-[; ;LCD.c: 67:   RS = 0;
-[e = _RS -> -> 0 `i `uc ]
-"68
-[; ;LCD.c: 68:   LCD_Write_4Bit(CMD & 0xF0);
-[e ( _LCD_Write_4Bit (1 -> & -> _CMD `i -> 240 `i `uc ]
-"69
-[; ;LCD.c: 69:   LCD_Write_4Bit((CMD << 4) & 0xF0);
-[e ( _LCD_Write_4Bit (1 -> & << -> _CMD `i -> 4 `i -> 240 `i `uc ]
-"70
-[; ;LCD.c: 70: }
-[e :UE 145 ]
-}
-"72
-[; ;LCD.c: 72: void LCD_Write_Char(const char Data)
-[v _LCD_Write_Char `(v ~T0 @X0 1 ef1`Cuc ]
-"73
-[; ;LCD.c: 73: {
-{
-[e :U _LCD_Write_Char ]
-"72
-[; ;LCD.c: 72: void LCD_Write_Char(const char Data)
-[v _Data `Cuc ~T0 @X0 1 r1 ]
-"73
-[; ;LCD.c: 73: {
-[f ]
-"74
-[; ;LCD.c: 74:   RS = 1;
-[e = _RS -> -> 1 `i `uc ]
-"75
-[; ;LCD.c: 75:   LCD_Write_4Bit(Data & 0xF0);
-[e ( _LCD_Write_4Bit (1 -> & -> _Data `i -> 240 `i `uc ]
-"76
-[; ;LCD.c: 76:   LCD_Write_4Bit((Data << 4) & 0xF0);
-[e ( _LCD_Write_4Bit (1 -> & << -> _Data `i -> 4 `i -> 240 `i `uc ]
-"77
-[; ;LCD.c: 77: }
-[e :UE 146 ]
-}
-"79
-[; ;LCD.c: 79: void LCD_Write_String(const char* Str)
-[v _LCD_Write_String `(v ~T0 @X0 1 ef1`*Cuc ]
-"80
-[; ;LCD.c: 80: {
-{
-[e :U _LCD_Write_String ]
-"79
-[; ;LCD.c: 79: void LCD_Write_String(const char* Str)
-[v _Str `*Cuc ~T0 @X0 1 r1 ]
-"80
-[; ;LCD.c: 80: {
-[f ]
-"81
-[; ;LCD.c: 81:   for(int i=0; Str[i]!='\0'; i++)
-{
-[v _i `i ~T0 @X0 1 a ]
-[e = _i -> 0 `i ]
-[e $U 151  ]
+[; ;RotaryEncoder.c: 62:         while(PORTBbits.RB3 == 1);
+[e $U 147  ]
 [e :U 148 ]
-"82
-[; ;LCD.c: 82:     LCD_Write_Char(Str[i]);
-[e ( _LCD_Write_Char (1 *U + _Str * -> _i `x -> -> # *U _Str `i `x ]
-[e ++ _i -> 1 `i ]
-[e :U 151 ]
-[e $ != -> *U + _Str * -> _i `x -> -> # *U _Str `i `x `ui -> 0 `ui 148  ]
+[e :U 147 ]
+[e $ == -> . . _PORTBbits 0 3 `i -> 1 `i 148  ]
 [e :U 149 ]
-}
-"83
-[; ;LCD.c: 83: }
-[e :UE 147 ]
-}
-"85
-[; ;LCD.c: 85: void LCD_Set_Cursor(unsigned char ROW, unsigned char COL)
-[v _LCD_Set_Cursor `(v ~T0 @X0 1 ef2`uc`uc ]
-"86
-[; ;LCD.c: 86: {
+"63
+[; ;RotaryEncoder.c: 63:         switch(colorIncrement){
+[e $U 151  ]
 {
-[e :U _LCD_Set_Cursor ]
-"85
-[; ;LCD.c: 85: void LCD_Set_Cursor(unsigned char ROW, unsigned char COL)
-[v _ROW `uc ~T0 @X0 1 r1 ]
-[v _COL `uc ~T0 @X0 1 r2 ]
-"86
-[; ;LCD.c: 86: {
-[f ]
-"87
-[; ;LCD.c: 87:   switch(ROW)
-[e $U 154  ]
-"88
-[; ;LCD.c: 88:   {
-{
-"89
-[; ;LCD.c: 89:     case 2:
-[e :U 155 ]
-"90
-[; ;LCD.c: 90:       LCD_CMD(0xC0 + COL-1);
-[e ( _LCD_CMD (1 -> - + -> 192 `i -> _COL `i -> 1 `i `uc ]
-"91
-[; ;LCD.c: 91:       break;
-[e $U 153  ]
-"92
-[; ;LCD.c: 92:     case 3:
-[e :U 156 ]
-"93
-[; ;LCD.c: 93:       LCD_CMD(0x94 + COL-1);
-[e ( _LCD_CMD (1 -> - + -> 148 `i -> _COL `i -> 1 `i `uc ]
-"94
-[; ;LCD.c: 94:       break;
-[e $U 153  ]
-"95
-[; ;LCD.c: 95:     case 4:
-[e :U 157 ]
-"96
-[; ;LCD.c: 96:       LCD_CMD(0xD4 + COL-1);
-[e ( _LCD_CMD (1 -> - + -> 212 `i -> _COL `i -> 1 `i `uc ]
-"97
-[; ;LCD.c: 97:       break;
-[e $U 153  ]
-"99
-[; ;LCD.c: 99:     default:
-[e :U 158 ]
-"100
-[; ;LCD.c: 100:       LCD_CMD(0x80 + COL-1);
-[e ( _LCD_CMD (1 -> - + -> 128 `i -> _COL `i -> 1 `i `uc ]
-"101
-[; ;LCD.c: 101:   }
-}
-[e $U 153  ]
-[e :U 154 ]
-[e [\ -> _ROW `i , $ -> 2 `i 155
- , $ -> 3 `i 156
- , $ -> 4 `i 157
- 158 ]
+"64
+[; ;RotaryEncoder.c: 64:             case 1:
+[e :U 152 ]
+"65
+[; ;RotaryEncoder.c: 65:                 CCPR1L = 100;
+[e = _CCPR1L -> -> 100 `i `uc ]
+"66
+[; ;RotaryEncoder.c: 66:                 colorIncrement++;
+[e ++ _colorIncrement -> 1 `i ]
+"67
+[; ;RotaryEncoder.c: 67:                 break;
+[e $U 150  ]
+"68
+[; ;RotaryEncoder.c: 68:             case 2:
 [e :U 153 ]
-"102
-[; ;LCD.c: 102: }
-[e :UE 152 ]
+"69
+[; ;RotaryEncoder.c: 69:                 CCPR1L = 80;
+[e = _CCPR1L -> -> 80 `i `uc ]
+"70
+[; ;RotaryEncoder.c: 70:                 colorIncrement++;
+[e ++ _colorIncrement -> 1 `i ]
+"71
+[; ;RotaryEncoder.c: 71:                 break;
+[e $U 150  ]
+"72
+[; ;RotaryEncoder.c: 72:             case 3:
+[e :U 154 ]
+"73
+[; ;RotaryEncoder.c: 73:                 CCPR1L = 60;
+[e = _CCPR1L -> -> 60 `i `uc ]
+"74
+[; ;RotaryEncoder.c: 74:                 colorIncrement++;
+[e ++ _colorIncrement -> 1 `i ]
+"75
+[; ;RotaryEncoder.c: 75:                 break;
+[e $U 150  ]
+"76
+[; ;RotaryEncoder.c: 76:             case 4:
+[e :U 155 ]
+"77
+[; ;RotaryEncoder.c: 77:                 CCPR1L = 20;
+[e = _CCPR1L -> -> 20 `i `uc ]
+"78
+[; ;RotaryEncoder.c: 78:                 colorIncrement++;
+[e ++ _colorIncrement -> 1 `i ]
+"79
+[; ;RotaryEncoder.c: 79:                 break;
+[e $U 150  ]
+"80
+[; ;RotaryEncoder.c: 80:             case 5:
+[e :U 156 ]
+"81
+[; ;RotaryEncoder.c: 81:                 CCPR1L = 0;
+[e = _CCPR1L -> -> 0 `i `uc ]
+"82
+[; ;RotaryEncoder.c: 82:                 colorIncrement = 1;
+[e = _colorIncrement -> 1 `i ]
+"83
+[; ;RotaryEncoder.c: 83:                 break;
+[e $U 150  ]
+"84
+[; ;RotaryEncoder.c: 84:             default:
+[e :U 157 ]
+"85
+[; ;RotaryEncoder.c: 85:                 colorIncrement = 1;
+[e = _colorIncrement -> 1 `i ]
+"86
+[; ;RotaryEncoder.c: 86:                 break;
+[e $U 150  ]
+"87
+[; ;RotaryEncoder.c: 87:         }
 }
-"104
-[; ;LCD.c: 104: void Backlight()
-[v _Backlight `(v ~T0 @X0 1 ef ]
-"105
-[; ;LCD.c: 105: {
-{
-[e :U _Backlight ]
-[f ]
-"106
-[; ;LCD.c: 106:   BackLight_State = 0x08;
-[e = _BackLight_State -> -> 8 `i `uc ]
-"107
-[; ;LCD.c: 107:   IO_Expander_Write(0);
-[e ( _IO_Expander_Write (1 -> -> 0 `i `uc ]
-"108
-[; ;LCD.c: 108: }
-[e :UE 159 ]
+[e $U 150  ]
+[e :U 151 ]
+[e [\ _colorIncrement , $ -> 1 `i 152
+ , $ -> 2 `i 153
+ , $ -> 3 `i 154
+ , $ -> 4 `i 155
+ , $ -> 5 `i 156
+ 157 ]
+[e :U 150 ]
+"88
+[; ;RotaryEncoder.c: 88:     }
 }
-"110
-[; ;LCD.c: 110: void noBacklight()
-[v _noBacklight `(v ~T0 @X0 1 ef ]
-"111
-[; ;LCD.c: 111: {
-{
-[e :U _noBacklight ]
-[f ]
-"112
-[; ;LCD.c: 112:   BackLight_State = 0x00;
-[e = _BackLight_State -> -> 0 `i `uc ]
-"113
-[; ;LCD.c: 113:   IO_Expander_Write(0);
-[e ( _IO_Expander_Write (1 -> -> 0 `i `uc ]
-"114
-[; ;LCD.c: 114: }
-[e :UE 160 ]
-}
-"116
-[; ;LCD.c: 116: void LCD_SL()
-[v _LCD_SL `(v ~T0 @X0 1 ef ]
-"117
-[; ;LCD.c: 117: {
-{
-[e :U _LCD_SL ]
-[f ]
-"118
-[; ;LCD.c: 118:   LCD_CMD(0x18);
-[e ( _LCD_CMD (1 -> -> 24 `i `uc ]
-"119
-[; ;LCD.c: 119:   _delay((unsigned long)((40)*(8000000/4000000.0)));
-[e ( __delay (1 -> * -> -> 40 `i `d / -> -> 8000000 `l `d .4000000.0 `ul ]
-"120
-[; ;LCD.c: 120: }
-[e :UE 161 ]
-}
-"122
-[; ;LCD.c: 122: void LCD_SR()
-[v _LCD_SR `(v ~T0 @X0 1 ef ]
-"123
-[; ;LCD.c: 123: {
-{
-[e :U _LCD_SR ]
-[f ]
-"124
-[; ;LCD.c: 124:   LCD_CMD(0x1C);
-[e ( _LCD_CMD (1 -> -> 28 `i `uc ]
-"125
-[; ;LCD.c: 125:   _delay((unsigned long)((40)*(8000000/4000000.0)));
-[e ( __delay (1 -> * -> -> 40 `i `d / -> -> 8000000 `l `d .4000000.0 `ul ]
-"126
-[; ;LCD.c: 126: }
-[e :UE 162 ]
-}
-"128
-[; ;LCD.c: 128: void LCD_Clear()
-[v _LCD_Clear `(v ~T0 @X0 1 ef ]
-"129
-[; ;LCD.c: 129: {
-{
-[e :U _LCD_Clear ]
-[f ]
-"130
-[; ;LCD.c: 130:   LCD_CMD(0x01);
-[e ( _LCD_CMD (1 -> -> 1 `i `uc ]
-"131
-[; ;LCD.c: 131:   _delay((unsigned long)((40)*(8000000/4000000.0)));
-[e ( __delay (1 -> * -> -> 40 `i `d / -> -> 8000000 `l `d .4000000.0 `ul ]
-"132
-[; ;LCD.c: 132: }
-[e :UE 163 ]
+[e :U 146 ]
+"91
+[; ;RotaryEncoder.c: 91: }
+[e :UE 145 ]
 }

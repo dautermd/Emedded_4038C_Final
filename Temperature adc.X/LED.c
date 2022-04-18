@@ -1,4 +1,16 @@
-#include "LED_H"
+#include "LED.h"
+
+
+void LED_Init() {
+    
+    TRISB |= (0 << 1);
+    
+}
+
+void LED_Color(unsigned char brt) {
+    sendRGB(brt,brt,brt); sendRGB(brt,brt,brt); sendRGB(brt,brt,brt);
+    sendRGB(brt,0,0); sendRGB(0,brt,0); sendRGB(0,0,brt); sendRGB(brt,brt,0); sendRGB(brt,0,brt); sendRGB(0,brt,brt); sendRGB(brt,brt,brt); sendRGB(0,0,0);
+}
 
 // send out a byte b in WS2812 protocol
 void sendByte (unsigned char b) {

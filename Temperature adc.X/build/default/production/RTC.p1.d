@@ -1,10 +1,10 @@
-build/default/production/Temp.p1:  \
-Temp.c  \
-Temp.h  \
+build/default/production/RTC.p1:  \
+RTC.c  \
+Configs.h  \
 LCD.h  \
 I2C_Master.h  \
-Configs.h  \
 RTC.h  \
+Temp.h  \
 DisplayClock.h  \
 Pinout.h  \
 LED.h 

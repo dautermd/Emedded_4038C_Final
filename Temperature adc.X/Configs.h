@@ -5,8 +5,8 @@
 
 
 /* PIC18F4550 Configuration Bit Settings*/
-#ifndef CONFIG
-#define CONFIG
+#ifndef CONFIG_H
+#define CONFIG_H
 /* 'C' source line config statements*/
 
 #include <xc.h>

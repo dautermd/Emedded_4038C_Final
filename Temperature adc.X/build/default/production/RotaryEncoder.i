@@ -1,4 +1,4 @@
-# 1 "newmain.c"
+# 1 "RotaryEncoder.c"
 # 1 "<built-in>" 1
 # 1 "<built-in>" 3
 # 288 "<built-in>" 3
@@ -6,8 +6,8 @@
 # 1 "<built-in>" 2
 # 1 "C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC16Fxxx_DFP/1.3.42/xc8\\pic\\include\\language_support.h" 1 3
 # 2 "<built-in>" 2
-# 1 "newmain.c" 2
-
+# 1 "RotaryEncoder.c" 2
+# 1 "./RotaryEncoder.h" 1
 
 
 
@@ -2508,8 +2508,7 @@ extern __bank0 unsigned char __resetbits;
 extern __bank0 __bit __powerdown;
 extern __bank0 __bit __timeout;
 # 29 "C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC16Fxxx_DFP/1.3.42/xc8\\pic\\include\\xc.h" 2 3
-# 5 "newmain.c" 2
-
+# 4 "./RotaryEncoder.h" 2
 
 # 1 "C:\\Program Files\\Microchip\\xc8\\v2.35\\pic\\include\\c90\\stdio.h" 1 3
 
@@ -2608,7 +2607,7 @@ extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupport
 #pragma printf_check(sprintf) const
 extern int sprintf(char *, const char *, ...);
 extern int printf(const char *, ...);
-# 7 "newmain.c" 2
+# 5 "./RotaryEncoder.h" 2
 
 # 1 "C:\\Program Files\\Microchip\\xc8\\v2.35\\pic\\include\\c90\\stdlib.h" 1 3
 
@@ -2693,7 +2692,7 @@ extern char * ltoa(char * buf, long val, int base);
 extern char * ultoa(char * buf, unsigned long val, int base);
 
 extern char * ftoa(float f, int * status);
-# 8 "newmain.c" 2
+# 6 "./RotaryEncoder.h" 2
 
 # 1 "C:\\Program Files\\Microchip\\xc8\\v2.35\\pic\\include\\c90\\string.h" 1 3
 # 14 "C:\\Program Files\\Microchip\\xc8\\v2.35\\pic\\include\\c90\\string.h" 3
@@ -2726,13 +2725,13 @@ extern char * strchr(const char *, int);
 extern char * strichr(const char *, int);
 extern char * strrchr(const char *, int);
 extern char * strrichr(const char *, int);
-# 9 "newmain.c" 2
+# 7 "./RotaryEncoder.h" 2
 
 # 1 "./LCD.h" 1
 # 25 "./LCD.h"
 extern unsigned char RS, i2c_add, BackLight_State;
 
-void LCD_Init();
+void LCD_Init(void);
 void IO_Expander_Write(unsigned char Data);
 void LCD_Write_4Bit(unsigned char Nibble);
 void LCD_CMD(unsigned char CMD);
@@ -2740,27 +2739,27 @@ void LCD_Set_Cursor(unsigned char ROW, unsigned char COL);
 void LCD_Write_Char(const char);
 void LCD_Write_String(const char*);
 void LCD_String_xy(char, char , const char *);
-void Backlight();
-void noBacklight();
-void LCD_SR();
-void LCD_SL();
-void LCD_Clear();
-# 10 "newmain.c" 2
+void Backlight(void);
+void noBacklight(void);
+void LCD_SR(void);
+void LCD_SL(void);
+void LCD_Clear(void);
+# 8 "./RotaryEncoder.h" 2
 
 # 1 "./I2C_Master.h" 1
 # 18 "./I2C_Master.h"
-void I2C_Ready();
-void I2C_Init();
+void I2C_Ready(void);
+void I2C_Init(void);
 char I2C_Start(char);
 void I2C_Start_Wait(char);
 
 char I2C_Repeated_Start(char);
-char I2C_Stop();
+char I2C_Stop(void);
 char I2C_Write(unsigned char);
-void I2C_Ack();
-void I2C_Nack();
+void I2C_Ack(void);
+void I2C_Nack(void);
 char I2C_Read(char flag);
-# 11 "newmain.c" 2
+# 9 "./RotaryEncoder.h" 2
 
 # 1 "./Configs.h" 1
 # 21 "./Configs.h"
@@ -2778,83 +2777,204 @@ char I2C_Read(char flag);
 
 #pragma config BOR4V = BOR40V
 #pragma config WRT = OFF
-# 12 "newmain.c" 2
+# 10 "./RotaryEncoder.h" 2
 
 # 1 "./Temp.h" 1
-# 13 "./Temp.h"
+# 11 "./Temp.h"
+# 1 "./Temp.h" 1
+# 11 "./Temp.h" 2
+
+# 1 "./RTC.h" 1
+# 11 "./RTC.h"
+# 1 "./Temp.h" 1
+# 11 "./RTC.h" 2
+
+# 1 "./RTC.h" 1
+# 12 "./RTC.h" 2
+
+# 1 "./DisplayClock.h" 1
+# 11 "./DisplayClock.h"
+# 1 "./Temp.h" 1
+# 11 "./DisplayClock.h" 2
+
+# 1 "./RTC.h" 1
+# 12 "./DisplayClock.h" 2
+
+# 1 "./DisplayClock.h" 1
+# 13 "./DisplayClock.h" 2
+
+# 1 "./Pinout.h" 1
+# 14 "./DisplayClock.h" 2
+
+# 1 "./LED.h" 1
+# 11 "./LED.h"
+# 1 "./Temp.h" 1
+# 11 "./LED.h" 2
+
+# 1 "./RTC.h" 1
+# 12 "./LED.h" 2
+
+# 1 "./DisplayClock.h" 1
+# 13 "./LED.h" 2
+
+
+# 1 "./LED.h" 1
+# 15 "./LED.h" 2
+
+
+
+
+
+void LED_Init(void);
+void LED_Color(unsigned char brt);
+void sendByte (unsigned char b);
+void sendRGB (unsigned char r, unsigned char g, unsigned char b);
+# 15 "./DisplayClock.h" 2
+
+
+extern int sec,min,hour;
+extern int Day,Date,Month,Year;
+extern char secs[10],mins[10],hours[10];
+extern char date[10],month[10],year[10];
+extern char Clock_type;
+extern char AM_PM;
+extern char days[7];
+
+
+void printClock(void);
+# 13 "./RTC.h" 2
+# 23 "./RTC.h"
+extern int sec,min,hour,Day,Date,Month,Year;
+
+void RTC_Read_Clock(char read_clock_address);
+void RTC_Read_Calendar(char read_calendar_address);
+void RTC_Clock_Write(char sec, char min, char hour, char AM_PM);
+void RTC_Calendar_Write(char day, char date, char month, char year);
+# 12 "./Temp.h" 2
+
+
+
+
+
 extern unsigned short result;
-extern int temperature;
+extern int temperature_c, temperature_f;
 extern int Temp_Mode;
 
 
-void Update_Farenheit();
-void Update_Celsius();
-# 13 "newmain.c" 2
+void Update_Farenheit(void);
+void Update_Celsius(void);
+void DisplayTemp(void);
+# 11 "./RotaryEncoder.h" 2
 
 
 
 
-void Display()
-{
-    char buffer1[16], buffer2[16];
-    sprintf(buffer1, "Temp:%3d*C", temperature);
-    sprintf(buffer2, "Temp:%3d*F", temperature);
-    LCD_Clear();
-    _delay((unsigned long)((10)*(8000000/4000.0)));
-    LCD_Write_String(buffer1);
-    LCD_Set_Cursor(2,0);
-    LCD_Write_String(buffer2);
-    _delay((unsigned long)((100)*(8000000/4000.0)));
+
+
+
+
+extern int lastStateCLK;
+
+extern int btnState;
+
+extern unsigned char brightness;
+extern int colorIncrement;
+
+
+
+
+void RotaryEncoder_Init(void);
+void ChangeBrightness(void);
+void ChangeColor(void);
+# 1 "RotaryEncoder.c" 2
+
+
+
+int lastStateCLK;
+
+int btnState;
+
+unsigned char brightness = 20;
+int colorIncrement = 2;
+
+
+void RotaryEncoder_Init(){
+
+    T2CON = 0x04;
+    PR2 = 101;
+
+    TRISBbits.TRISB0 = 1;
+    TRISBbits.TRISB3 = 1;
+    TRISBbits.TRISB7 = 1;
+
+    PSTRCONbits.STRB = 1;
+    PSTRCONbits.STRC = 1;
+    PSTRCONbits.STRD = 1;
+
+
+    CCP1CONbits.P1M = 0x00;
+    CCP1CONbits.CCP1M = 0b1100;
+
 }
 
+void ChangeBrightness(){
 
-void main(void) {
+    lastStateCLK = PORTBbits.RB7;
+    CCPR1L = brightness;
 
+    if(PORTBbits.RB7 != lastStateCLK && PORTBbits.RB7 == 1){
 
-    TRISB = 0x0;
-    TRISA = 0xff;
+        if(PORTBbits.RB0 != PORTBbits.RB7 && brightness > 0){
+            brightness = brightness - 10;
+            CCPR1L = brightness;
+        }
 
-
-    PORTA = 0x0;
-    PORTB = 0x0;
-
-
-    ANSEL = 0x0;
-
-    ANSELH = 0x0;
-    ANSELbits.ANS3 = 1;
-
-
-    ADCON0bits.ADCS = 0b11;
-    ADCON0bits.CHS = 0b0011;
-
-
-    ADCON1bits.VCFG1 = 0;
-    ADCON1bits.VCFG0 = 0;
-    ADCON1bits.ADFM = 1;
-
-
-    PIR1bits.ADIF = 0;
-
-
-    PIE1bits.ADIE = 1;
-
-    ADCON0bits.ADON = 1;
-
-    I2C_Init();
-    LCD_Init();
-    LCD_Clear();
-    _delay((unsigned long)((10)*(8000000/4000.0)));
-
-
-
-    while (1){
-
-        Update_Celsius();
-
-        Display();
-
+        else if(PORTBbits.RB0 == PORTBbits.RB7 && brightness < 100){
+           brightness = brightness + 10;
+           CCPR1L = brightness;
+        }
     }
 
+    lastStateCLK = PORTBbits.RB7;
+
+}
+
+void ChangeColor(){
+
+    LED_Color(1);
+
     return;
+
+    btnState = PORTBbits.RB3;
+
+    if (PORTBbits.RB3 == 1){
+        while(PORTBbits.RB3 == 1);
+        switch(colorIncrement){
+            case 1:
+                CCPR1L = 100;
+                colorIncrement++;
+                break;
+            case 2:
+                CCPR1L = 80;
+                colorIncrement++;
+                break;
+            case 3:
+                CCPR1L = 60;
+                colorIncrement++;
+                break;
+            case 4:
+                CCPR1L = 20;
+                colorIncrement++;
+                break;
+            case 5:
+                CCPR1L = 0;
+                colorIncrement = 1;
+                break;
+            default:
+                colorIncrement = 1;
+                break;
+        }
+    }
+
+
 }

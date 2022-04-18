@@ -30,9 +30,9 @@ void Update_Farenheit()
     
     PIR1bits.ADIF = 0; // ADC interrupt flag
 
-    temperature_f = .32640625*result - 67;
+    temperature_f = .32640625*result - 67+64;
     
-    Temp_Mode = 0;
+
 
 }
 
@@ -50,9 +50,21 @@ void Update_Celsius()
     result = result | ADRESL;
 
     PIR1bits.ADIF = 0; // ADC interrupt flag
-    temperature_c = .17578125*result - 55;
+    temperature_c = .17578125*result - 55+35;
     
     Temp_Mode = 1;
 
     //write code to display temperature 
+}
+void DisplayTemp()
+{
+    char buffer1[16], buffer2[16];
+    sprintf(buffer1, "Temp:%3d*C", temperature_c);
+    __delay_ms(1); //necessary otherwise LCD doesn't display at all
+    LCD_Write_String(buffer1);       
+    LCD_Set_Cursor('2','0'); 
+    sprintf(buffer2, "Temp:%3d*F", temperature_f);
+    LCD_Write_String(buffer2);
+    __delay_ms(200);        
+        
 }

@@ -1,5 +1,5 @@
-#ifndef TEMP_H
-#define TEMP_H
+#ifndef PHOTORESISTOR_H
+#define PHOTORESISTOR_H
 
 #include <xc.h>
 #include <stdio.h>
@@ -14,14 +14,9 @@
 #include "Pinout.h"
 #include "LED.h"
 
-extern unsigned short result;
-extern int temperature_c, temperature_f; 
-extern int Temp_Mode; // 0 (F), 1 (C))
+extern unsigned int photo_result;
 
-
-void Update_Farenheit(void);
-void Update_Celsius(void);
-void DisplayTemp(void); 
-
+void PhotoResistor_Init(void);
+void ReadPhoto(void);
 
 #endif
