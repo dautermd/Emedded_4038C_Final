@@ -45,7 +45,7 @@
 [v _I2C_Ack I2C_Ack `(v  1 e 1 0 ]
 "117
 [v _I2C_Nack I2C_Nack `(v  1 e 1 0 ]
-"42 C:\Users\ponti\Documents\UC\Spring 2022\Embedded System Design\Emedded_4038C_Final\Temperature adc.X\interface_main.c
+"38 C:\Users\ponti\Documents\UC\Spring 2022\Embedded System Design\Emedded_4038C_Final\Temperature adc.X\interface_main.c
 [v _main main `(v  1 e 1 0 ]
 "8 C:\Users\ponti\Documents\UC\Spring 2022\Embedded System Design\Emedded_4038C_Final\Temperature adc.X\LCD.c
 [v _LCD_String_xy LCD_String_xy `(v  1 e 1 0 ]
@@ -65,20 +65,6 @@
 [v _LCD_Set_Cursor LCD_Set_Cursor `(v  1 e 1 0 ]
 "128
 [v _LCD_Clear LCD_Clear `(v  1 e 1 0 ]
-"4 C:\Users\ponti\Documents\UC\Spring 2022\Embedded System Design\Emedded_4038C_Final\Temperature adc.X\LED.c
-[v _LED_Init LED_Init `(v  1 e 1 0 ]
-"10
-[v _LED_Color LED_Color `(v  1 e 1 0 ]
-"16
-[v _sendByte sendByte `(v  1 e 1 0 ]
-"30
-[v _sendRGB sendRGB `(v  1 e 1 0 ]
-"14 C:\Users\ponti\Documents\UC\Spring 2022\Embedded System Design\Emedded_4038C_Final\Temperature adc.X\PhotoResistor.c
-[v _ReadPhoto ReadPhoto `(v  1 e 1 0 ]
-"12 C:\Users\ponti\Documents\UC\Spring 2022\Embedded System Design\Emedded_4038C_Final\Temperature adc.X\RotaryEncoder.c
-[v _RotaryEncoder_Init RotaryEncoder_Init `(v  1 e 1 0 ]
-"31
-[v _ChangeBrightness ChangeBrightness `(v  1 e 1 0 ]
 "16 C:\Users\ponti\Documents\UC\Spring 2022\Embedded System Design\Emedded_4038C_Final\Temperature adc.X\RTC.c
 [v _RTC_Read_Clock RTC_Read_Clock `(v  1 e 1 0 ]
 "27
@@ -89,24 +75,29 @@
 [v _RTC_Calendar_Write RTC_Calendar_Write `(v  1 e 1 0 ]
 "8 C:\Users\ponti\Documents\UC\Spring 2022\Embedded System Design\Emedded_4038C_Final\Temperature adc.X\Temp.c
 [v _Update_Farenheit Update_Farenheit `(v  1 e 1 0 ]
-"39
+"37
 [v _Update_Celsius Update_Celsius `(v  1 e 1 0 ]
-"59
+"57
 [v _DisplayTemp DisplayTemp `(v  1 e 1 0 ]
 "229 C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC16Fxxx_DFP/1.3.42/xc8\pic\include\proc\pic16f886.h
 [v _PORTB PORTB `VEuc  1 e 1 @6 ]
-[s S743 . 1 `uc 1 RB0 1 0 :1:0 
-`uc 1 RB1 1 0 :1:1 
-`uc 1 RB2 1 0 :1:2 
-`uc 1 RB3 1 0 :1:3 
-`uc 1 RB4 1 0 :1:4 
-`uc 1 RB5 1 0 :1:5 
-`uc 1 RB6 1 0 :1:6 
-`uc 1 RB7 1 0 :1:7 
+[s S460 . 1 `uc 1 RBIF 1 0 :1:0 
+`uc 1 INTF 1 0 :1:1 
+`uc 1 T0IF 1 0 :1:2 
+`uc 1 RBIE 1 0 :1:3 
+`uc 1 INTE 1 0 :1:4 
+`uc 1 T0IE 1 0 :1:5 
+`uc 1 PEIE 1 0 :1:6 
+`uc 1 GIE 1 0 :1:7 
 ]
-"246
-[u S752 . 1 `S743 1 . 1 0 ]
-[v _PORTBbits PORTBbits `VES752  1 e 1 @6 ]
+"404
+[s S469 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 TMR0IF 1 0 :1:2 
+`uc 1 . 1 0 :2:3 
+`uc 1 TMR0IE 1 0 :1:5 
+]
+[u S474 . 1 `S460 1 . 1 0 `S469 1 . 1 0 ]
+[v _INTCONbits INTCONbits `VES474  1 e 1 @11 ]
 [s S329 . 1 `uc 1 TMR1IF 1 0 :1:0 
 `uc 1 TMR2IF 1 0 :1:1 
 `uc 1 CCP1IF 1 0 :1:2 
@@ -118,20 +109,33 @@
 "475
 [u S337 . 1 `S329 1 . 1 0 ]
 [v _PIR1bits PIR1bits `VES337  1 e 1 @12 ]
-"694
-[v _T2CON T2CON `VEuc  1 e 1 @18 ]
+[s S432 . 1 `uc 1 T2CKPS 1 0 :2:0 
+`uc 1 TMR2ON 1 0 :1:2 
+`uc 1 TOUTPS 1 0 :4:3 
+]
+"715
+[s S436 . 1 `uc 1 T2CKPS0 1 0 :1:0 
+`uc 1 T2CKPS1 1 0 :1:1 
+`uc 1 . 1 0 :1:2 
+`uc 1 TOUTPS0 1 0 :1:3 
+`uc 1 TOUTPS1 1 0 :1:4 
+`uc 1 TOUTPS2 1 0 :1:5 
+`uc 1 TOUTPS3 1 0 :1:6 
+]
+[u S444 . 1 `S432 1 . 1 0 `S436 1 . 1 0 ]
+[v _T2CONbits T2CONbits `VES444  1 e 1 @18 ]
 "765
 [v _SSPBUF SSPBUF `VEuc  1 e 1 @19 ]
 "772
 [v _SSPCON SSPCON `VEuc  1 e 1 @20 ]
 "849
 [v _CCPR1L CCPR1L `VEuc  1 e 1 @21 ]
-[s S704 . 1 `uc 1 CCP1M 1 0 :4:0 
+[s S391 . 1 `uc 1 CCP1M 1 0 :4:0 
 `uc 1 DC1B 1 0 :2:4 
 `uc 1 P1M 1 0 :2:6 
 ]
 "890
-[s S708 . 1 `uc 1 CCP1M0 1 0 :1:0 
+[s S395 . 1 `uc 1 CCP1M0 1 0 :1:0 
 `uc 1 CCP1M1 1 0 :1:1 
 `uc 1 CCP1M2 1 0 :1:2 
 `uc 1 CCP1M3 1 0 :1:3 
@@ -140,12 +144,12 @@
 `uc 1 P1M0 1 0 :1:6 
 `uc 1 P1M1 1 0 :1:7 
 ]
-[s S717 . 1 `uc 1 . 1 0 :4:0 
+[s S404 . 1 `uc 1 . 1 0 :4:0 
 `uc 1 CCP1Y 1 0 :1:4 
 `uc 1 CCP1X 1 0 :1:5 
 ]
-[u S721 . 1 `S704 1 . 1 0 `S708 1 . 1 0 `S717 1 . 1 0 ]
-[v _CCP1CONbits CCP1CONbits `VES721  1 e 1 @23 ]
+[u S408 . 1 `S391 1 . 1 0 `S395 1 . 1 0 `S404 1 . 1 0 ]
+[v _CCP1CONbits CCP1CONbits `VES408  1 e 1 @23 ]
 "1160
 [v _ADRESH ADRESH `VEuc  1 e 1 @30 ]
 [s S281 . 1 `uc 1 ADON 1 0 :1:0 
@@ -173,18 +177,6 @@
 [v _ADCON0bits ADCON0bits `VES301  1 e 1 @31 ]
 "1400
 [v _TRISB TRISB `VEuc  1 e 1 @134 ]
-[s S668 . 1 `uc 1 TRISB0 1 0 :1:0 
-`uc 1 TRISB1 1 0 :1:1 
-`uc 1 TRISB2 1 0 :1:2 
-`uc 1 TRISB3 1 0 :1:3 
-`uc 1 TRISB4 1 0 :1:4 
-`uc 1 TRISB5 1 0 :1:5 
-`uc 1 TRISB6 1 0 :1:6 
-`uc 1 TRISB7 1 0 :1:7 
-]
-"1417
-[u S677 . 1 `S668 1 . 1 0 ]
-[v _TRISBbits TRISBbits `VES677  1 e 1 @134 ]
 "1462
 [v _TRISC TRISC `VEuc  1 e 1 @135 ]
 [s S125 . 1 `uc 1 TRISC0 1 0 :1:0 
@@ -201,7 +193,7 @@
 [v _TRISCbits TRISCbits `VES134  1 e 1 @135 ]
 "1524
 [v _TRISE TRISE `VEuc  1 e 1 @137 ]
-[s S503 . 1 `uc 1 TMR1IE 1 0 :1:0 
+[s S611 . 1 `uc 1 TMR1IE 1 0 :1:0 
 `uc 1 TMR2IE 1 0 :1:1 
 `uc 1 CCP1IE 1 0 :1:2 
 `uc 1 SSPIE 1 0 :1:3 
@@ -210,8 +202,8 @@
 `uc 1 ADIE 1 0 :1:6 
 ]
 "1561
-[u S511 . 1 `S503 1 . 1 0 ]
-[v _PIE1bits PIE1bits `VES511  1 e 1 @140 ]
+[u S619 . 1 `S611 1 . 1 0 ]
+[v _PIE1bits PIE1bits `VES619  1 e 1 @140 ]
 "1822
 [v _SSPCON2 SSPCON2 `VEuc  1 e 1 @145 ]
 [s S152 . 1 `uc 1 SEN 1 0 :1:0 
@@ -275,49 +267,39 @@
 ]
 [u S63 . 1 `S23 1 . 1 0 `S32 1 . 1 0 `S37 1 . 1 0 `S43 1 . 1 0 `S48 1 . 1 0 `S53 1 . 1 0 `S58 1 . 1 0 ]
 [v _SSPSTATbits SSPSTATbits `VES63  1 e 1 @148 ]
-[s S689 . 1 `uc 1 STRA 1 0 :1:0 
+[s S492 . 1 `uc 1 STRA 1 0 :1:0 
 `uc 1 STRB 1 0 :1:1 
 `uc 1 STRC 1 0 :1:2 
 `uc 1 STRD 1 0 :1:3 
 `uc 1 STRSYNC 1 0 :1:4 
 ]
 "2783
-[u S695 . 1 `S689 1 . 1 0 ]
-[v _PSTRCONbits PSTRCONbits `VES695  1 e 1 @157 ]
+[u S498 . 1 `S492 1 . 1 0 ]
+[v _PSTRCONbits PSTRCONbits `VES498  1 e 1 @157 ]
 "2813
 [v _ADRESL ADRESL `VEuc  1 e 1 @158 ]
-[s S477 . 1 `uc 1 . 1 0 :4:0 
+[s S585 . 1 `uc 1 . 1 0 :4:0 
 `uc 1 VCFG0 1 0 :1:4 
 `uc 1 VCFG1 1 0 :1:5 
 `uc 1 . 1 0 :1:6 
 `uc 1 ADFM 1 0 :1:7 
 ]
 "2834
-[u S483 . 1 `S477 1 . 1 0 ]
-[v _ADCON1bits ADCON1bits `VES483  1 e 1 @159 ]
+[u S591 . 1 `S585 1 . 1 0 ]
+[v _ADCON1bits ADCON1bits `VES591  1 e 1 @159 ]
 "3230
 [v _ANSEL ANSEL `VEuc  1 e 1 @392 ]
-[s S436 . 1 `uc 1 ANS0 1 0 :1:0 
+[s S544 . 1 `uc 1 ANS0 1 0 :1:0 
 `uc 1 ANS1 1 0 :1:1 
 `uc 1 ANS2 1 0 :1:2 
 `uc 1 ANS3 1 0 :1:3 
 `uc 1 ANS4 1 0 :1:4 
 ]
 "3244
-[u S442 . 1 `S436 1 . 1 0 ]
-[v _ANSELbits ANSELbits `VES442  1 e 1 @392 ]
+[u S550 . 1 `S544 1 . 1 0 ]
+[v _ANSELbits ANSELbits `VES550  1 e 1 @392 ]
 "3274
 [v _ANSELH ANSELH `VEuc  1 e 1 @393 ]
-[s S798 . 1 `uc 1 ANS8 1 0 :1:0 
-`uc 1 ANS9 1 0 :1:1 
-`uc 1 ANS10 1 0 :1:2 
-`uc 1 ANS11 1 0 :1:3 
-`uc 1 ANS12 1 0 :1:4 
-`uc 1 ANS13 1 0 :1:5 
-]
-"3289
-[u S805 . 1 `S798 1 . 1 0 ]
-[v _ANSELHbits ANSELHbits `VES805  1 e 1 @393 ]
 "3392
 [v _ACKDT ACKDT `VEb  1 e 0 @1165 ]
 "3395
@@ -328,8 +310,6 @@
 [v _PEN PEN `VEb  1 e 0 @1162 ]
 "3938
 [v _RB5 RB5 `VEb  1 e 0 @53 ]
-"3962
-[v _RC3 RC3 `VEb  1 e 0 @59 ]
 "3986
 [v _RCEN RCEN `VEb  1 e 0 @1163 ]
 "4001
@@ -344,31 +324,21 @@
 [v _dpowers dpowers `DC[5]ui  1 s 10 dpowers ]
 "366
 [v _hexpowers hexpowers `DC[4]ui  1 s 8 hexpowers ]
-"27 C:\Users\ponti\Documents\UC\Spring 2022\Embedded System Design\Emedded_4038C_Final\Temperature adc.X\interface_main.c
+"23 C:\Users\ponti\Documents\UC\Spring 2022\Embedded System Design\Emedded_4038C_Final\Temperature adc.X\interface_main.c
 [v _result result `us  1 e 2 0 ]
-"36
+"32
 [v _secs secs `[10]uc  1 e 10 0 ]
 [v _mins mins `[10]uc  1 e 10 0 ]
 [v _hours hours `[10]uc  1 e 10 0 ]
-"37
+"33
 [v _date date `[10]uc  1 e 10 0 ]
 [v _month month `[10]uc  1 e 10 0 ]
 [v _year year `[10]uc  1 e 10 0 ]
-"40
+"36
 [v _days days `[7]uc  1 e 7 0 ]
 "6 C:\Users\ponti\Documents\UC\Spring 2022\Embedded System Design\Emedded_4038C_Final\Temperature adc.X\LCD.c
 [v _RS RS `uc  1 e 1 0 ]
 [v _BackLight_State BackLight_State `uc  1 e 1 0 ]
-"3 C:\Users\ponti\Documents\UC\Spring 2022\Embedded System Design\Emedded_4038C_Final\Temperature adc.X\PhotoResistor.c
-[v _photo_result photo_result `ui  1 e 2 0 ]
-"4 C:\Users\ponti\Documents\UC\Spring 2022\Embedded System Design\Emedded_4038C_Final\Temperature adc.X\RotaryEncoder.c
-[v _lastStateCLK lastStateCLK `i  1 e 2 0 ]
-"6
-[v _btnState btnState `i  1 e 2 0 ]
-"8
-[v _brightness brightness `uc  1 e 1 0 ]
-"9
-[v _colorIncrement colorIncrement `i  1 e 2 0 ]
 "13 C:\Users\ponti\Documents\UC\Spring 2022\Embedded System Design\Emedded_4038C_Final\Temperature adc.X\RTC.c
 [v _sec sec `i  1 e 2 0 ]
 [v _min min `i  1 e 2 0 ]
@@ -383,30 +353,28 @@
 [v _temperature_f temperature_f `i  1 e 2 0 ]
 "5
 [v _Temp_Mode Temp_Mode `i  1 e 2 0 ]
-"42 C:\Users\ponti\Documents\UC\Spring 2022\Embedded System Design\Emedded_4038C_Final\Temperature adc.X\interface_main.c
+"38 C:\Users\ponti\Documents\UC\Spring 2022\Embedded System Design\Emedded_4038C_Final\Temperature adc.X\interface_main.c
 [v _main main `(v  1 e 1 0 ]
 {
-"220
-[v main@buffer3_613 buffer3 `[16]uc  1 a 16 32 ]
-"218
-[v main@tmp tmp `ui  1 a 2 48 ]
-"203
-[v main@buffer3_610 buffer3 `[16]uc  1 a 16 16 ]
-"73
+"251
+[v main@buffer3_737 buffer3 `[16]uc  1 a 16 16 ]
+"237
+[v main@tmp tmp `ui  1 a 2 32 ]
+"89
 [v main@buffer3 buffer3 `[16]uc  1 a 16 0 ]
-"62
-[v main@displayMode displayMode `s  1 a 2 50 ]
-"244
+"80
+[v main@displayMode displayMode `s  1 a 2 34 ]
+"273
 } 0
 "8 C:\Users\ponti\Documents\UC\Spring 2022\Embedded System Design\Emedded_4038C_Final\Temperature adc.X\Temp.c
 [v _Update_Farenheit Update_Farenheit `(v  1 e 1 0 ]
 {
-"37
+"35
 } 0
-"39
+"37
 [v _Update_Celsius Update_Celsius `(v  1 e 1 0 ]
 {
-"58
+"56
 } 0
 "10 C:\Program Files\Microchip\xc8\v2.35\pic\sources\c90\common\xxtofl.c
 [v ___xxtofl __xxtofl `(d  1 e 4 0 ]
@@ -436,17 +404,17 @@
 "8 C:\Program Files\Microchip\xc8\v2.35\pic\sources\c90\common\sprcmul.c
 [v ___flmul __flmul `(d  1 e 4 0 ]
 {
-[s S1226 . 4 `uc 1 a 1 0 `uc 1 b 1 1 `uc 1 c 1 2 `uc 1 d 1 3 ]
+[s S1076 . 4 `uc 1 a 1 0 `uc 1 b 1 1 `uc 1 c 1 2 `uc 1 d 1 3 ]
 "13
-[s S1231 . 4 `i 1 wordA 2 0 `i 1 wordB 2 2 ]
-[u S1234 . 4 `l 1 i 4 0 `d 1 f 4 0 `S1226 1 fAsBytes 4 0 `S1231 1 fAsWords 4 0 ]
-[v ___flmul@prod prod `S1234  1 a 4 20 ]
+[s S1081 . 4 `i 1 wordA 2 0 `i 1 wordB 2 2 ]
+[u S1084 . 4 `l 1 i 4 0 `d 1 f 4 0 `S1076 1 fAsBytes 4 0 `S1081 1 fAsWords 4 0 ]
+[v ___flmul@prod prod `S1084  1 a 4 20 ]
 "12
 [v ___flmul@grs grs `ul  1 a 4 14 ]
-[s S1303 . 2 `uc 1 a 1 0 `uc 1 b 1 1 ]
+[s S1153 . 2 `uc 1 a 1 0 `uc 1 b 1 1 ]
 "14
-[u S1306 . 2 `i 1 i 2 0 `ui 1 n 2 0 `S1303 1 nAsBytes 2 0 ]
-[v ___flmul@temp temp `S1306  1 a 2 24 ]
+[u S1156 . 2 `i 1 i 2 0 `ui 1 n 2 0 `S1153 1 nAsBytes 2 0 ]
+[v ___flmul@temp temp `S1156  1 a 2 24 ]
 "10
 [v ___flmul@bexp bexp `uc  1 a 1 19 ]
 "11
@@ -487,16 +455,6 @@
 [v ___fladd@b b `d  1 p 4 26 ]
 [v ___fladd@a a `d  1 p 4 30 ]
 "237
-} 0
-"12 C:\Users\ponti\Documents\UC\Spring 2022\Embedded System Design\Emedded_4038C_Final\Temperature adc.X\RotaryEncoder.c
-[v _RotaryEncoder_Init RotaryEncoder_Init `(v  1 e 1 0 ]
-{
-"29
-} 0
-"14 C:\Users\ponti\Documents\UC\Spring 2022\Embedded System Design\Emedded_4038C_Final\Temperature adc.X\PhotoResistor.c
-[v _ReadPhoto ReadPhoto `(v  1 e 1 0 ]
-{
-"46
 } 0
 "16 C:\Users\ponti\Documents\UC\Spring 2022\Embedded System Design\Emedded_4038C_Final\Temperature adc.X\RTC.c
 [v _RTC_Read_Clock RTC_Read_Clock `(v  1 e 1 0 ]
@@ -571,11 +529,6 @@
 [v RTC_Calendar_Write@day day `uc  1 a 1 5 ]
 "59
 } 0
-"4 C:\Users\ponti\Documents\UC\Spring 2022\Embedded System Design\Emedded_4038C_Final\Temperature adc.X\LED.c
-[v _LED_Init LED_Init `(v  1 e 1 0 ]
-{
-"8
-} 0
 "8 C:\Users\ponti\Documents\UC\Spring 2022\Embedded System Design\Emedded_4038C_Final\Temperature adc.X\LCD.c
 [v _LCD_String_xy LCD_String_xy `(v  1 e 1 0 ]
 {
@@ -604,13 +557,13 @@
 {
 "38
 } 0
-"59 C:\Users\ponti\Documents\UC\Spring 2022\Embedded System Design\Emedded_4038C_Final\Temperature adc.X\Temp.c
+"57 C:\Users\ponti\Documents\UC\Spring 2022\Embedded System Design\Emedded_4038C_Final\Temperature adc.X\Temp.c
 [v _DisplayTemp DisplayTemp `(v  1 e 1 0 ]
 {
-"61
+"59
 [v DisplayTemp@buffer2 buffer2 `[16]uc  1 a 16 40 ]
 [v DisplayTemp@buffer1 buffer1 `[16]uc  1 a 16 24 ]
-"70
+"68
 } 0
 "505 C:\Program Files\Microchip\xc8\v2.35\pic\sources\c90\common\doprnt.c
 [v _sprintf sprintf `(i  1 e 2 0 ]
@@ -760,9 +713,4 @@
 [v _I2C_Ready I2C_Ready `(v  1 e 1 0 ]
 {
 "45
-} 0
-"31 C:\Users\ponti\Documents\UC\Spring 2022\Embedded System Design\Emedded_4038C_Final\Temperature adc.X\RotaryEncoder.c
-[v _ChangeBrightness ChangeBrightness `(v  1 e 1 0 ]
-{
-"51
 } 0

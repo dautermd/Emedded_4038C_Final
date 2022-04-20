@@ -356,96 +356,93 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;Temp.c: 28:     result = result | ADRESL;
 [e = _result -> | -> _result `ui -> _ADRESL `ui `us ]
 "29
-[; ;Temp.c: 29:     temperature_f = .32640625*result -67;
-[e = _temperature_f -> - * .0.32640625 -> -> _result `ui `d -> -> 67 `i `d `i ]
+[; ;Temp.c: 29:     temperature_f = 1.265625*result -67;
+[e = _temperature_f -> - * .1.265625 -> -> _result `ui `d -> -> 67 `i `d `i ]
 "31
 [; ;Temp.c: 31:     PIR1bits.ADIF = 0;
 [e = . . _PIR1bits 0 6 -> -> 0 `i `uc ]
-"33
-[; ;Temp.c: 33:     temperature_f = .32640625*result - 67+64;
-[e = _temperature_f -> + - * .0.32640625 -> -> _result `ui `d -> -> 67 `i `d -> -> 64 `i `d `i ]
-"37
-[; ;Temp.c: 37: }
+"35
+[; ;Temp.c: 35: }
 [e :UE 139 ]
 }
-"39
-[; ;Temp.c: 39: void Update_Celsius()
+"37
+[; ;Temp.c: 37: void Update_Celsius()
 [v _Update_Celsius `(v ~T0 @X0 1 ef ]
-"40
-[; ;Temp.c: 40: {
+"38
+[; ;Temp.c: 38: {
 {
 [e :U _Update_Celsius ]
 [f ]
-"42
-[; ;Temp.c: 42:     ADCON0bits.GO = 1;
+"40
+[; ;Temp.c: 40:     ADCON0bits.GO = 1;
 [e = . . _ADCON0bits 1 1 -> -> 1 `i `uc ]
-"44
-[; ;Temp.c: 44:     while(ADCON0bits.GO == 1);
+"42
+[; ;Temp.c: 42:     while(ADCON0bits.GO == 1);
 [e $U 144  ]
 [e :U 145 ]
 [e :U 144 ]
 [e $ == -> . . _ADCON0bits 1 1 `i -> 1 `i 145  ]
 [e :U 146 ]
-"47
-[; ;Temp.c: 47:     result = 0x0000;
+"45
+[; ;Temp.c: 45:     result = 0x0000;
 [e = _result -> -> 0 `i `us ]
-"48
-[; ;Temp.c: 48:     result = ADRESH;
+"46
+[; ;Temp.c: 46:     result = ADRESH;
 [e = _result -> _ADRESH `us ]
-"49
-[; ;Temp.c: 49:     result = result << 8;
+"47
+[; ;Temp.c: 47:     result = result << 8;
 [e = _result -> << -> _result `ui -> 8 `i `us ]
-"50
-[; ;Temp.c: 50:     result = result | ADRESL;
+"48
+[; ;Temp.c: 48:     result = result | ADRESL;
 [e = _result -> | -> _result `ui -> _ADRESL `ui `us ]
-"52
-[; ;Temp.c: 52:     PIR1bits.ADIF = 0;
+"50
+[; ;Temp.c: 50:     PIR1bits.ADIF = 0;
 [e = . . _PIR1bits 0 6 -> -> 0 `i `uc ]
+"51
+[; ;Temp.c: 51:     temperature_c = .7*result - 55;
+[e = _temperature_c -> - * .0.7 -> -> _result `ui `d -> -> 55 `i `d `i ]
 "53
-[; ;Temp.c: 53:     temperature_c = .17578125*result - 55+35;
-[e = _temperature_c -> + - * .0.17578125 -> -> _result `ui `d -> -> 55 `i `d -> -> 35 `i `d `i ]
-"55
-[; ;Temp.c: 55:     Temp_Mode = 1;
+[; ;Temp.c: 53:     Temp_Mode = 1;
 [e = _Temp_Mode -> 1 `i ]
-"58
-[; ;Temp.c: 58: }
+"56
+[; ;Temp.c: 56: }
 [e :UE 143 ]
 }
-"59
-[; ;Temp.c: 59: void DisplayTemp()
+"57
+[; ;Temp.c: 57: void DisplayTemp()
 [v _DisplayTemp `(v ~T0 @X0 1 ef ]
-"60
-[; ;Temp.c: 60: {
+"58
+[; ;Temp.c: 58: {
 {
 [e :U _DisplayTemp ]
 [f ]
-"61
-[; ;Temp.c: 61:     char buffer1[16], buffer2[16];
+"59
+[; ;Temp.c: 59:     char buffer1[16], buffer2[16];
 [v _buffer1 `uc ~T0 @X0 -> 16 `i a ]
 [v _buffer2 `uc ~T0 @X0 -> 16 `i a ]
-"62
-[; ;Temp.c: 62:     sprintf(buffer1, "Temp:%3d*C", temperature_c);
+"60
+[; ;Temp.c: 60:     sprintf(buffer1, "Temp:%3d*C", temperature_c);
 [e ( _sprintf (1 , (. , &U _buffer1 :s 1C _temperature_c ]
-"63
-[; ;Temp.c: 63:     _delay((unsigned long)((1)*(8000000/4000.0)));
+"61
+[; ;Temp.c: 61:     _delay((unsigned long)((1)*(8000000/4000.0)));
 [e ( __delay (1 -> * -> -> 1 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
-"64
-[; ;Temp.c: 64:     LCD_Write_String(buffer1);
+"62
+[; ;Temp.c: 62:     LCD_Write_String(buffer1);
 [e ( _LCD_Write_String (1 -> &U _buffer1 `*Cuc ]
-"65
-[; ;Temp.c: 65:     LCD_Set_Cursor('2','0');
+"63
+[; ;Temp.c: 63:     LCD_Set_Cursor('2','0');
 [e ( _LCD_Set_Cursor (2 , -> -> 50 `ui `uc -> -> 48 `ui `uc ]
-"66
-[; ;Temp.c: 66:     sprintf(buffer2, "Temp:%3d*F", temperature_f);
+"64
+[; ;Temp.c: 64:     sprintf(buffer2, "Temp:%3d*F", temperature_f);
 [e ( _sprintf (1 , (. , &U _buffer2 :s 2C _temperature_f ]
-"67
-[; ;Temp.c: 67:     LCD_Write_String(buffer2);
+"65
+[; ;Temp.c: 65:     LCD_Write_String(buffer2);
 [e ( _LCD_Write_String (1 -> &U _buffer2 `*Cuc ]
-"68
-[; ;Temp.c: 68:     _delay((unsigned long)((200)*(8000000/4000.0)));
+"66
+[; ;Temp.c: 66:     _delay((unsigned long)((200)*(8000000/4000.0)));
 [e ( __delay (1 -> * -> -> 200 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
-"70
-[; ;Temp.c: 70: }
+"68
+[; ;Temp.c: 68: }
 [e :UE 147 ]
 }
 [p f _sprintf 8421504 ]

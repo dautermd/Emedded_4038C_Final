@@ -2868,35 +2868,7 @@ void Update_Farenheit(void);
 void Update_Celsius(void);
 void DisplayTemp(void);
 # 12 "interface_main.c" 2
-
-
-
-
-# 1 "./RotaryEncoder.h" 1
-# 19 "./RotaryEncoder.h"
-extern int lastStateCLK;
-
-extern int btnState;
-
-extern unsigned char brightness;
-extern int colorIncrement;
-
-
-
-
-void RotaryEncoder_Init(void);
-void ChangeBrightness(void);
-void ChangeColor(void);
-# 16 "interface_main.c" 2
-
-# 1 "./PhotoResistor.h" 1
-# 17 "./PhotoResistor.h"
-extern unsigned int photo_result;
-
-void PhotoResistor_Init(void);
-void ReadPhoto(void);
-# 17 "interface_main.c" 2
-# 27 "interface_main.c"
+# 23 "interface_main.c"
 unsigned short result;
 
 unsigned short alarmTime;
@@ -2922,10 +2894,32 @@ void main (void){
     PORTB = 0b00110000;
     TRISE = 0x0;
 
+
+
+    CCP1CONbits.CCP1M3 = 1;
+    CCP1CONbits.CCP1M2 = 1;
+    CCP1CONbits.P1M = 0b00;
+
+
+    CCPR1L = 0;
+
+
+    PR2 = 0x65;
+
+
+    T2CONbits.TOUTPS = 0b0000;
+    T2CONbits.TMR2ON = 1;
+    T2CONbits.T2CKPS = 0b0;
+
+
+    INTCONbits.GIE = 1;
+    INTCONbits.PEIE = 1;
+
+
+    PSTRCONbits.STRC = 1;
+
     I2C_Init();
     LCD_Init();
-    LED_Init();
-    RotaryEncoder_Init();
     LCD_Clear();
     _delay((unsigned long)((10)*(8000000/4000.0)));
 
@@ -2937,8 +2931,6 @@ void main (void){
     while(1){
 
         LCD_Clear();
-
-
 
 
         if (displayMode == 0)
@@ -3070,11 +3062,43 @@ void main (void){
         }
         else if (displayMode == 3) {
 
-            ChangeBrightness();
+            ANSELbits.ANS4 = 1;
 
+
+            ADCON0bits.ADCS = 0b11;
+            ADCON0bits.CHS = 0b0100;
+
+
+            ADCON1bits.VCFG1 = 0;
+            ADCON1bits.VCFG0 = 0;
+            ADCON1bits.ADFM = 1;
+
+
+            PIR1bits.ADIF = 0;
+
+
+            PIE1bits.ADIE = 1;
+
+            ADCON0bits.ADON = 1;
+
+            ADCON0bits.GO = 1;
+
+            unsigned tmp = 0;
+
+            while(ADCON0bits.GO == 1);
+
+
+            tmp = 0x0000;
+            tmp = ADRESH;
+            tmp = tmp << 8;
+            tmp = tmp | ADRESL;
+
+            PIR1bits.ADIF = 0;
+
+            CCPR1L = (tmp / 10);
 
             char buffer3[16];
-            sprintf(buffer3, "Light:%d", brightness);
+            sprintf(buffer3, "Speaker:%d", tmp);
             LCD_String_xy(0,0,buffer3);
             _delay((unsigned long)((100)*(8000000/4000.0)));
 
@@ -3082,32 +3106,13 @@ void main (void){
             {
                 while(RE3 == 0 && RB5 == 0);
                 displayMode = displayMode+1;
-            }
-        }
-
-        else if (displayMode == 4) {
-            ReadPhoto();
-
-            unsigned tmp = 1024 - photo_result;
-
-            char buffer3[16];
-            sprintf(buffer3, "Photo:%d", tmp);
-            LCD_String_xy(0,0,buffer3);
-            _delay((unsigned long)((100)*(8000000/4000.0)));
-
-
-            CCPR1L = tmp;
-
-            if(RE3 == 0 && RB5 == 0)
-            {
-                while(RE3 == 0 && RB5 == 0);
-                displayMode = displayMode+1;
+                CCPR1L = 0;
             }
         }
 
 
        _delay((unsigned long)((10)*(8000000/4000.0)));
-       if(displayMode >= 5)
+       if(displayMode >= 4)
        {
            displayMode = 0;
        }

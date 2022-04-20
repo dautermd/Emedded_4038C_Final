@@ -2885,11 +2885,9 @@ void Update_Farenheit()
     result = ADRESH;
     result = result << 8;
     result = result | ADRESL;
-    temperature_f = .32640625*result -67;
+    temperature_f = 1.265625*result -67;
 
     PIR1bits.ADIF = 0;
-
-    temperature_f = .32640625*result - 67+64;
 
 
 
@@ -2909,7 +2907,7 @@ void Update_Celsius()
     result = result | ADRESL;
 
     PIR1bits.ADIF = 0;
-    temperature_c = .17578125*result - 55+35;
+    temperature_c = .7*result - 55;
 
     Temp_Mode = 1;
 

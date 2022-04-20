@@ -7,6 +7,4 @@ Temp.h  \
 RTC.h  \
 DisplayClock.h  \
 Pinout.h  \
-LED.h  \
-RotaryEncoder.h  \
-PhotoResistor.h 
+LED.h 

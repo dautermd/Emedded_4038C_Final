@@ -9,9 +9,6 @@
       <itemPath>Configs.h</itemPath>
       <itemPath>Temp.h</itemPath>
       <itemPath>RTC.h</itemPath>
-      <itemPath>LED.h</itemPath>
-      <itemPath>RotaryEncoder.h</itemPath>
-      <itemPath>PhotoResistor.h</itemPath>
       <itemPath>Pinout.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
@@ -26,9 +23,6 @@
       <itemPath>Temp.c</itemPath>
       <itemPath>interface_main.c</itemPath>
       <itemPath>RTC.c</itemPath>
-      <itemPath>LED.c</itemPath>
-      <itemPath>RotaryEncoder.c</itemPath>
-      <itemPath>PhotoResistor.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

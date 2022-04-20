@@ -12,18 +12,13 @@
 #include "Temp.h"
 #include "RTC.h"
 #include "Pinout.h"
-#include "LED.h"
-#include "RotaryEncoder.h"
-#include "PhotoResistor.h"
 
-#define MAX_COUNT_DISPLAY 6
+#define MAX_COUNT_DISPLAY 4
 
 // Display Modes
 #define MODE_CLOCK 1
 #define MODE_TEMPERATURE 2
-#define MODE_LED 3
-#define MODE_AMBIENT 4
-#define MODE_SPEAKER 5
+#define MODE_SPEAKER 3
 
 unsigned short result;
 
@@ -50,10 +45,32 @@ void main (void){
     PORTB = 0b00110000; //init PORTB as outputs except RB5 as input (button)
     TRISE = 0x0;
     
+    // Enhanced CCP1 Control Register
+    // Select output mode
+    CCP1CONbits.CCP1M3 = 1; //  Select Single Output Mode
+    CCP1CONbits.CCP1M2 = 1; //  Select Single Output Mode
+    CCP1CONbits.P1M = 0b00; // Single output; P1A modulated; P1B, P1C, P1D assigned as port pins    
+
+    // Set duty cycle
+    CCPR1L = 0; // 50% Duty Cycle
+
+    // PWM Frequency, 
+    PR2 = 0x65; // 19.61 kHz
+
+    // Timer2 Control Register
+    T2CONbits.TOUTPS = 0b0000; // Postscalar is 1:16
+    T2CONbits.TMR2ON = 1; // timer2 on bit
+    T2CONbits.T2CKPS = 0b0; // Prescalar is 16
+
+    // Set global interrupt, and peripheral interrupt flags
+    INTCONbits.GIE = 1;
+    INTCONbits.PEIE = 1;
+
+    // PSTRCON set steering
+    PSTRCONbits.STRC = 1; // Set P1C as PWM waveform with polarity control from CCPxM<1:0>
+    
     I2C_Init();
     LCD_Init();
-    LED_Init();
-    RotaryEncoder_Init();
     LCD_Clear();
     __delay_ms(10);
     
@@ -65,8 +82,6 @@ void main (void){
     while(1){
         
         LCD_Clear();
-        
-
         
         //LCD Display modes
         if (displayMode == 0)
@@ -196,75 +211,53 @@ void main (void){
                 displayMode = displayMode+1; 
             }
         }
-        else if (displayMode == MODE_LED) {
-            // Rotary Encoder functions
-            ChangeBrightness();
-    //            ChangeColor();
-            
-            char buffer3[16]; 
-            sprintf(buffer3, "Light:%d", brightness);
-            LCD_String_xy(0,0,buffer3);
-            __delay_ms(100); 
-
-            if(BUTTON1 == 0 && BUTTON2 == 0)
-            {
-                while(BUTTON1 == 0 && BUTTON2 == 0);
-                displayMode = displayMode+1; 
-            }
-        }
-        
-        else if (displayMode == MODE_AMBIENT) {
-            ReadPhoto();
-
-            unsigned tmp = 1024 - photo_result;
-            
-            char buffer3[16]; 
-            sprintf(buffer3, "Photo:%d", tmp);
-            LCD_String_xy(0,0,buffer3);
-            __delay_ms(100); 
-            
-            // TODO: properly scale
-            CCPR1L = tmp;
-
-            if(BUTTON1 == 0 && BUTTON2 == 0)
-            {
-                while(BUTTON1 == 0 && BUTTON2 == 0);
-                displayMode = displayMode+1; 
-            }
-        }
         else if (displayMode == MODE_SPEAKER) {
-            
-            // TODO: needs to write to DAC
-            
-            continue;
+
+            ANSELbits.ANS4 = 1; // A4 Analog Input
+
+            // ADC Control Register 0
+            ADCON0bits.ADCS = 0b11; // ADC Conversion Clock Select, FRC (internal oscillator)
+            ADCON0bits.CHS = 0b0100; // Analog Channel Select, AN4
+
+            // ADC Control Register 1
+            ADCON1bits.VCFG1 = 0; // Voltage Ref, VSS
+            ADCON1bits.VCFG0 = 0; // Voltage Ref, VDD
+            ADCON1bits.ADFM = 1; // ADC Result Format, Right Justified
+
+            // Peripheral Interrupt request register
+            PIR1bits.ADIF = 0; // ADC interrupt flag
+
+            // Peripheral Interrupt Enables
+            PIE1bits.ADIE = 1; // ADC Interrupt enable bit
+
+            ADCON0bits.ADON = 1; // ADC Enable Bit
             
             ADCON0bits.GO = 1;
+            
+            unsigned tmp = 0;
 
             while(ADCON0bits.GO == 1); // Wait till conversion is done
 
             // Read results, stored in two registers (10 bit resolution)
-            result = 0x0000;
-            result = ADRESH;
-            result = result << 8;
-            result = result | ADRESL;
-            temperature_f = .32640625*result -67; 
+            tmp = 0x0000;
+            tmp = ADRESH;
+            tmp = tmp << 8;
+            tmp = tmp | ADRESL;
 
             PIR1bits.ADIF = 0; // ADC interrupt flag
             
-            unsigned tmp = 0;
+            CCPR1L = (tmp / 10); // 50% Duty Cycle
             
             char buffer3[16]; 
-            sprintf(buffer3, "Photo:%d", tmp);
+            sprintf(buffer3, "Speaker:%d", tmp);
             LCD_String_xy(0,0,buffer3);
             __delay_ms(100); 
             
-            // TODO: properly scale
-            CCPR1L = tmp;
-
             if(BUTTON1 == 0 && BUTTON2 == 0)
             {
                 while(BUTTON1 == 0 && BUTTON2 == 0);
                 displayMode = displayMode+1; 
+                CCPR1L = 0;
             }
         }
 
