@@ -356,8 +356,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;Temp.c: 28:     result = result | ADRESL;
 [e = _result -> | -> _result `ui -> _ADRESL `ui `us ]
 "29
-[; ;Temp.c: 29:     temperature_f = 1.265625*result -67;
-[e = _temperature_f -> - * .1.265625 -> -> _result `ui `d -> -> 67 `i `d `i ]
+[; ;Temp.c: 29:     temperature_f = .32640625*result -67+64;
+[e = _temperature_f -> + - * .0.32640625 -> -> _result `ui `d -> -> 67 `i `d -> -> 64 `i `d `i ]
 "31
 [; ;Temp.c: 31:     PIR1bits.ADIF = 0;
 [e = . . _PIR1bits 0 6 -> -> 0 `i `uc ]
@@ -399,8 +399,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;Temp.c: 50:     PIR1bits.ADIF = 0;
 [e = . . _PIR1bits 0 6 -> -> 0 `i `uc ]
 "51
-[; ;Temp.c: 51:     temperature_c = .7*result - 55;
-[e = _temperature_c -> - * .0.7 -> -> _result `ui `d -> -> 55 `i `d `i ]
+[; ;Temp.c: 51:     temperature_c = .17578125*result - 55+35;
+[e = _temperature_c -> + - * .0.17578125 -> -> _result `ui `d -> -> 55 `i `d -> -> 35 `i `d `i ]
 "53
 [; ;Temp.c: 53:     Temp_Mode = 1;
 [e = _Temp_Mode -> 1 `i ]

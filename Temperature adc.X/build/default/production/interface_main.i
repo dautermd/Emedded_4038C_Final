@@ -2868,10 +2868,11 @@ void Update_Farenheit(void);
 void Update_Celsius(void);
 void DisplayTemp(void);
 # 12 "interface_main.c" 2
-# 23 "interface_main.c"
+# 24 "interface_main.c"
 unsigned short result;
 
-unsigned short alarmTime;
+int alarmTime;
+unsigned alarmFlag = 0;
 
 
 
@@ -2923,8 +2924,8 @@ void main (void){
     LCD_Clear();
     _delay((unsigned long)((10)*(8000000/4000.0)));
 
-    RTC_Clock_Write(0x00, 0x14, 0x10, 0x40);
-    RTC_Calendar_Write(0x1, 0x22, 0x04, 0x18);
+    RTC_Clock_Write(0x00, 0x30, 0x1, 0x60);
+    RTC_Calendar_Write(0x3, 0x22, 0x4, 0x20);
 
     short int displayMode = 0;
 
@@ -2936,13 +2937,13 @@ void main (void){
         if (displayMode == 0)
         {
             char buffer3[16];
-            sprintf(buffer3, "%s", "Hello There");
+            sprintf(buffer3, "%s", "Press RB5 2 Strt");
             LCD_String_xy(0,0,buffer3);
             _delay((unsigned long)((100)*(8000000/4000.0)));
 
-            if(RE3 == 0 && RB5 == 0)
+            if(RB5 == 0)
             {
-                while(RE3 == 0 && RB5 == 0);
+                while(RB5 == 0);
                 displayMode = displayMode+1;
             }
         }
@@ -3020,9 +3021,9 @@ void main (void){
 
             _delay((unsigned long)((10)*(8000000/4000.0)));
 
-            if(RE3 == 0 && RB5 == 0)
+            if(RB5 == 0)
             {
-                while(RE3 == 0 && RB5 == 0);
+                while(RB5 == 0);
                 displayMode = displayMode+1;
 
             }
@@ -3054,9 +3055,9 @@ void main (void){
             Update_Farenheit();
             DisplayTemp();
 
-            if(RE3 == 0 && RB5 == 0)
+            if(RB5 == 0)
             {
-                while(RE3 == 0 && RB5 == 0);
+                while(RB5 == 0);
                 displayMode = displayMode+1;
             }
         }
@@ -3102,17 +3103,59 @@ void main (void){
             LCD_String_xy(0,0,buffer3);
             _delay((unsigned long)((100)*(8000000/4000.0)));
 
-            if(RE3 == 0 && RB5 == 0)
+            if(RB5 == 0)
             {
-                while(RE3 == 0 && RB5 == 0);
+                while(RB5 == 0);
                 displayMode = displayMode+1;
                 CCPR1L = 0;
             }
         }
+        else if (displayMode == 4) {
 
+            RTC_Read_Clock(0);
+            I2C_Stop();
+
+            if (alarmFlag == 0){
+                alarmTime = sec;
+                alarmFlag = 1;
+            }
+
+            unsigned tmp = abs(alarmTime - sec);
+
+            if (tmp > 6){
+                tmp -= 6;
+            }
+
+
+            if (tmp > 10){
+                char buffer3[16];
+                sprintf(buffer3, "%s", "RING RING");
+                LCD_String_xy(0,0,buffer3);
+
+                CCPR1L = 25;
+                _delay((unsigned long)((1000)*(8000000/4000.0)));
+                CCPR1L = 0;
+                alarmFlag = 0;
+            }
+            else {
+                char buffer3[16];
+                sprintf(buffer3, "Alarm:%d", tmp);
+                LCD_String_xy(0,0,buffer3);
+
+            }
+
+
+
+
+            if(RB5 == 0)
+            {
+                while(RB5 == 0);
+                displayMode = displayMode+1;
+            }
+        }
 
        _delay((unsigned long)((10)*(8000000/4000.0)));
-       if(displayMode >= 4)
+       if(displayMode >= 5)
        {
            displayMode = 0;
        }

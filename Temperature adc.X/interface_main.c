@@ -13,16 +13,18 @@
 #include "RTC.h"
 #include "Pinout.h"
 
-#define MAX_COUNT_DISPLAY 4
+#define MAX_COUNT_DISPLAY 5
 
 // Display Modes
 #define MODE_CLOCK 1
 #define MODE_TEMPERATURE 2
 #define MODE_SPEAKER 3
+#define MODE_ALARM 4
 
 unsigned short result;
 
-unsigned short alarmTime;
+int alarmTime;
+unsigned alarmFlag = 0;
 
 #define device_id_write 0xD0
 #define device_id_read 0xD1
@@ -74,8 +76,8 @@ void main (void){
     LCD_Clear();
     __delay_ms(10);
     
-    RTC_Clock_Write(0x00, 0x14, 0x10, hour_12_AM);
-    RTC_Calendar_Write(0x1, 0x22, 0x04, 0x18);
+    RTC_Clock_Write(0x00, 0x30, 0x1, hour_12_PM);
+    RTC_Calendar_Write(0x3, 0x22, 0x4, 0x20);
     
     short int displayMode = 0; // sets in test mode to begin
     
@@ -87,13 +89,13 @@ void main (void){
         if (displayMode == 0)
         {
             char buffer3[16]; 
-            sprintf(buffer3, "%s", "Hello There");
+            sprintf(buffer3, "%s", "Press RB5 2 Strt");
             LCD_String_xy(0,0,buffer3);
             __delay_ms(100); 
             
-            if(BUTTON1 == 0 && BUTTON2 == 0)
+            if(BUTTON2 == 0)
             {
-                while(BUTTON1 == 0 && BUTTON2 == 0);
+                while(BUTTON2 == 0);
                 displayMode = displayMode+1; 
             }
         }
@@ -171,9 +173,9 @@ void main (void){
             
             __delay_ms(10);
             
-            if(BUTTON1 == 0 && BUTTON2 == 0)
+            if(BUTTON2 == 0)
             {
-                while(BUTTON1 == 0 && BUTTON2 == 0);
+                while(BUTTON2 == 0);
                 displayMode = displayMode+1; 
 
             }
@@ -205,9 +207,9 @@ void main (void){
             Update_Farenheit(); //See Temp.c
             DisplayTemp();  //See Temp.C
             
-            if(BUTTON1 == 0 && BUTTON2 == 0)
+            if(BUTTON2 == 0)
             {
-                while(BUTTON1 == 0 && BUTTON2 == 0);
+                while(BUTTON2 == 0);
                 displayMode = displayMode+1; 
             }
         }
@@ -253,14 +255,56 @@ void main (void){
             LCD_String_xy(0,0,buffer3);
             __delay_ms(100); 
             
-            if(BUTTON1 == 0 && BUTTON2 == 0)
+            if(BUTTON2 == 0)
             {
-                while(BUTTON1 == 0 && BUTTON2 == 0);
+                while(BUTTON2 == 0);
                 displayMode = displayMode+1; 
                 CCPR1L = 0;
             }
         }
+        else if (displayMode == MODE_ALARM) {
+            
+            RTC_Read_Clock(0);              /*gives second,minute and hour*/
+            I2C_Stop();
+            
+            if (alarmFlag == 0){
+                alarmTime = sec;
+                alarmFlag = 1;
+            }
+            
+            unsigned tmp = abs(alarmTime - sec);
+            
+            if (tmp > 6){
+                tmp -= 6;
+            }
 
+            // 10 seconds pass
+            if (tmp > 10){
+                char buffer3[16]; 
+                sprintf(buffer3, "%s", "RING RING");
+                LCD_String_xy(0,0,buffer3);  
+                
+                CCPR1L = 25;
+                __delay_ms(1000);
+                CCPR1L = 0;
+                alarmFlag = 0;
+            }
+            else {
+                char buffer3[16]; 
+                sprintf(buffer3, "Alarm:%d", tmp);
+                LCD_String_xy(0,0,buffer3);                
+                
+            }
+            
+
+//            __delay_ms(100); 
+            
+            if(BUTTON2 == 0)
+            {
+                while(BUTTON2 == 0);
+                displayMode = displayMode+1; 
+            }
+        }
                 
        __delay_ms(10);
        if(displayMode >= MAX_COUNT_DISPLAY)
